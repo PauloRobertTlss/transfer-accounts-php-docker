@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+
+  app:
+    build: .
+    container_name: transfer-app
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 60s ./.docker/entrypoint.sh
+    ports:
+      - "3000:3000"
+    environment:
+        - _DB_HOST=db
+        - _DB_DATABASE=transfer_accounts
+        - _DB_USERNAME=root
+        - _DB_PASSWORD=root
+        - _TEST_DB_DATABASE=transfer_accounts_test
+    volumes:
+      - .:/var/www
+    networks:
+      - transfer-network
+    depends_on:
+      - db
+      - redis
+
+  nginx:
+    build: .docker/nginx
+    container_name: transfer-nginx
+    restart: always
+    tty: true
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+    networks:
+      - transfer-network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: transfer-db
+    restart: always
+    tty: true
+    ports:
+      - "33006:3306"
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+      - ./.docker/mysql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=@123456
+      - MYSQL_USER=root
+    networks:
+      - transfer-network
+
+  redis:
+    image: redis:alpine
+    container_name: transfer-redis
+    expose:
+      - 6379
+    networks:
+      - transfer-network
+
+networks:
+  transfer-network:
+    driver: bridge
