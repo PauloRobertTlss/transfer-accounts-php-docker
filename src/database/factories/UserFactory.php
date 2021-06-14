@@ -2,9 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +15,30 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(App\Models\CRM\Client\ClientModel::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'id' => $faker->uuid,
+        'name' => $faker->name
+    ];
+});
+
+$factory->define(App\Models\CRM\Client\PersonModel::class, function (Faker $faker) {
+    return [
+        'document' => rand(100, 999) . '.' . rand(100, 999) . '.' . rand(100, 999) . '-' . rand(10, 99)
+    ];
+});
+
+$factory->define(App\Models\CRM\Client\ShopkeeperModel::class, function (Faker $faker) {
+    return [
+        'document' => $faker->creditCardNumber
+    ];
+});
+
+$factory->define(App\Models\Financial\BankAccount\BankAccountModel::class, function (Faker $faker) {
+
+    return [
+        'agency' => rand(100, 8999) . '-' . rand(1, 9),
+        'account' => rand(500, 85258) . '-' . rand(1, 99),
+        'balance' => $faker->randomFloat(1,100,1000 )
     ];
 });
