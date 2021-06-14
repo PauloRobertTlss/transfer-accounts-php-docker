@@ -2,7 +2,7 @@
 
 namespace App\Domain\CRM\Client\Entity;
 
-interface ShopkeeperInterface extends ClientInterface
+interface ShopkeeperInterface
 {
     public function cnpj(): string;
 }

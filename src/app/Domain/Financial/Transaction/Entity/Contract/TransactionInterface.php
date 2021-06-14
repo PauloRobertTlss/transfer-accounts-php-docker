@@ -1,18 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Financial;
+namespace App\Domain\Financial\Transaction\Entity\Contract;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
 use App\Domain\Resource\TimestampUidInterface;
 
 interface TransactionInterface extends TimestampUidInterface
 {
-    public function value(): float;
+    public function getValue(): float;
 
-    public function bankAccount(): BankAccountInterface;
+    public function getBankAccount(): BankAccountInterface;
 
-    public function category(): CategoryInterface;
-
-    public function client(): ClientInterface;
+    public function getClient(): ClientInterface;
 
 }

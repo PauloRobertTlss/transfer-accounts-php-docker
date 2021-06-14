@@ -2,7 +2,7 @@
 
 namespace App\Domain\Financial\Transaction\Entity\Contract;
 
-interface CategoryInterface
+interface CategoryPayeeP2BInterface extends CategoryPayeeInterface
 {
-    public function identifier(): string;
+
 }

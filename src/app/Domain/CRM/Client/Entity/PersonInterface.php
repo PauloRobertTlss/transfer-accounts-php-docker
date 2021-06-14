@@ -2,7 +2,7 @@
 
 namespace App\Domain\CRM\Client\Entity;
 
-interface PersonInterface extends ClientInterface
+interface PersonInterface
 {
     public function cpf(): string;
 }

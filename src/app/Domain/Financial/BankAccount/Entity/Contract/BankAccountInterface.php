@@ -1,22 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Financial;
+namespace App\Domain\Financial\BankAccount\Entity\Contract;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
+use App\Domain\Resource\ResourceIdInterface;
 use App\Domain\Resource\ResourceUidInterface;
 
-interface BankAccountInterface extends ResourceUidInterface
+interface BankAccountInterface extends ResourceIdInterface
 {
-    public function name(): string;
+    public function getAgency(): string;
 
-    public function agency(): string;
+    public function getAccount(): string;
 
-    public function account(): string;
+    public function getBalance(): float;
 
-    public function default(): bool;
-
-    public function balance(): float;
-
-    public function client(): ClientInterface;
+    public function getClient(): ClientInterface;
 
 }

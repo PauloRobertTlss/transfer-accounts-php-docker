@@ -2,7 +2,7 @@
 
 namespace App\Domain\Resource;
 
-interface ResourceUidInterface
+interface ResourceIdInterface
 {
-    public function uuid(): string;
+    public function id(): int;
 }
