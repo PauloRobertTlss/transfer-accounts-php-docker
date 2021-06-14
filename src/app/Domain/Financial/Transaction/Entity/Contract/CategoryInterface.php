@@ -4,5 +4,5 @@ namespace App\Domain\Financial;
 
 interface CategoryInterface
 {
-
+    public function identifier(): string;
 }

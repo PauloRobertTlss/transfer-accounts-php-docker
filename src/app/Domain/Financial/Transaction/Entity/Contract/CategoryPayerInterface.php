@@ -2,7 +2,7 @@
 
 namespace App\Domain\Financial;
 
-interface CategoryPayeeInterface
+interface CategoryPayerInterface extends CategoryInterface
 {
 
 }
