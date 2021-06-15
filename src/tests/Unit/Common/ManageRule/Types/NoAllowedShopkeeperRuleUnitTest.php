@@ -29,15 +29,6 @@ class NoAllowedShopkeeperRuleUnitTest extends TestCase
         $this->assertInstanceOf(RuleInterface::class, $this->instance);
     }
 
-    public function testRulesFieldStartedEmpty()
-    {
-        $reflectionClass = new \ReflectionClass(NoAllowedShopkeeperRule::class);
-        $reflectionProperty = $reflectionClass->getProperty('value');
-        $reflectionProperty->setAccessible(true);
-        $value = $reflectionProperty->getValue($this->instance);
-        $this->assertEquals($value,self::VALUE);
-
-    }
 
     public function testParseOrFailShopkeeper(): void
     {
