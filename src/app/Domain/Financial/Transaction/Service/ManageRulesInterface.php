@@ -3,7 +3,7 @@
 namespace App\Domain\Financial\Transaction\Service;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Services\Transaction\ManageRule\Contract\RuleInterface;
+use App\Common\ManageRule\Contract\RuleInterface;
 
 interface ManageRulesInterface
 {
