@@ -11,9 +11,9 @@ use App\ExternalAuthorization\{ExternalAuthorizationInterface, ExternalValidator
 class Singleton
 {
     /**
-     * @var ExternalAuthorizationInterface
+     * @var ExternalAuthorizationInterface|null
      */
-    private static ExternalAuthorizationInterface $instance;
+    private static ?ExternalAuthorizationInterface $instance;
 
     private function __construct()
     {
@@ -25,7 +25,7 @@ class Singleton
         // Do nothing
     }
 
-    public static function instance(): ExternalAuthorizationInterface
+    public static function instance(): ?ExternalAuthorizationInterface
     {
         if (self::$instance === null) {
             self::$instance = new ExternalValidator();
