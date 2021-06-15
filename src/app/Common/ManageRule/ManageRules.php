@@ -3,7 +3,6 @@
 namespace App\Common\ManageRule;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Financial\Transaction\Service\ManageRulesInterface;
 use App\Common\ManageRule\Contract\RuleInterface;
 use App\Common\ManageRule\Exceptions\NoClassRuleException;
 use Illuminate\Support\Facades\Log;

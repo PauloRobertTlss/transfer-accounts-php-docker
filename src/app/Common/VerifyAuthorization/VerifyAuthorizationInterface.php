@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Financial\Transaction\Service;
+namespace App\Common\VerifyAuthorization;
 
 interface VerifyAuthorizationInterface
 {

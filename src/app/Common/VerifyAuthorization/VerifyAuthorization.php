@@ -2,7 +2,6 @@
 
 namespace App\Common\VerifyAuthorization;
 
-use App\Domain\Financial\Transaction\Service\VerifyAuthorizationInterface;
 use App\ExternalAuthorization\ExternalAuthorizationInterface;
 use GuzzleHttp\Exception\ClientException;
 use App\Common\VerifyAuthorization\Exceptions\{NoGrantedException, ServiceOfflineException};

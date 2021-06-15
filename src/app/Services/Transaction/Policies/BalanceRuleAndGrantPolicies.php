@@ -2,10 +2,10 @@
 
 namespace App\Services\Transaction\Policies;
 
+use App\Common\ManageRule\ManageRulesInterface;
+use App\Common\VerifyAuthorization\VerifyAuthorizationInterface;
 use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Domain\Financial\Transaction\Service\ManageRulesInterface;
-use App\Domain\Financial\Transaction\Service\VerifyAuthorizationInterface;
 use App\Models\CRM\Client\ClientModel;
 use App\Common\ManageRule\Types\BalanceNoZeroRule;
 

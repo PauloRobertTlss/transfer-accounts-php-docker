@@ -2,6 +2,9 @@
 
 namespace App\Providers\Transaction;
 
+use App\Common\ManageRule\ManageRules;
+use App\Common\ManageRule\ManageRulesInterface;
+use App\Common\VerifyAuthorization\VerifyAuthorizationInterface;
 use App\Domain\Financial\BankAccount\Repository\BankAccountRepositoryInterface;
 use App\ExternalAuthorization\Build\Singleton;
 use App\ExternalAuthorization\ExternalAuthorizationInterface;
@@ -10,14 +13,15 @@ use App\Domain\Financial\Transaction\Repository\{
     TransactionPayerRepositoryInterface
 };
 use App\Domain\Financial\Transaction\Service\{
-    ManageRulesInterface,
     TransactionServiceAsyncInterface,
-    VerifyAuthorizationInterface
 };
 use App\Repositories\BankAccount\BankAccountRepositoryEloquent;
 use App\Repositories\Transactions\{TransactionPayeeRepositoryEloquent, TransactionPayerRepositoryEloquent};
-use App\Services\Transaction\{ManageRule\ManageRules, TransactionServiceAsync};
-use App\Services\Transaction\VerifyAuthorization\VerifyAuthorization;
+use App\Services\Transaction\{
+    Policies\BalanceRuleAndGrantPolicies,
+    Policies\TransactionPoliciesInterface,
+    TransactionServiceAsync};
+use App\Common\VerifyAuthorization\VerifyAuthorization;
 use Illuminate\Support\ServiceProvider;
 
 class TransactionServiceProvider extends ServiceProvider
@@ -31,7 +35,10 @@ class TransactionServiceProvider extends ServiceProvider
         $this->app->bind(ManageRulesInterface::class, ManageRules::class);
         $this->app->bind(TransactionServiceAsyncInterface::class, TransactionServiceAsync::class);
         $this->app->bind(VerifyAuthorizationInterface::class, VerifyAuthorization::class);
-        $this->app->singleton(ExternalAuthorizationInterface::class, Singleton::instance());
+        $this->app->bind(TransactionPoliciesInterface::class, BalanceRuleAndGrantPolicies::class);
+        $this->app->singleton(ExternalAuthorizationInterface::class, function () {
+                return Singleton::instance();
+        });
     }
 
 }
