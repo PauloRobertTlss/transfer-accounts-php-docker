@@ -2,14 +2,20 @@
 
 namespace Tests\Feature\Http\Controllers\Api\Transactions;
 
+use App\Domain\Financial\Transaction\Service\TransactionServiceAsyncInterface;
 use App\ExternalAuthorization\ExternalAuthorizationInterface;
+use App\Http\Controllers\Api\TransactionsController;
+use App\Http\Requests\Transaction\TransactionRequest;
 use App\Models\Financial\BankAccount\BankAccountModel;
 use App\Models\Financial\Transaction\TransactionPayee;
 use App\Models\Financial\Transaction\TransactionPayer;
 use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRuleException;
 use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
+use SebastianBergmann\CodeCoverage\TestIdMissingException;
 use Tests\Stubs\ExternalAuthorization\ExternalValidatorSuccessStub;
 
 class TransactionsControllersTest extends BaseTransactions
@@ -78,9 +84,6 @@ class TransactionsControllersTest extends BaseTransactions
 
     public function testInvalidateTypeTransactionShopkeeperToOther()
     {
-        if (env('QUEUE_CONNECTION') === "sync") {
-            $this->expectException(NoAllowedShopKeeperRuleException::class);
-        }
 
         $shopkeeper = Uuid::uuid4()->toString();
         $shopkeeperTwo = Uuid::uuid4()->toString();
@@ -88,6 +91,9 @@ class TransactionsControllersTest extends BaseTransactions
         $this->factoryShopkeeper($shopkeeper);
         $this->factoryShopkeeper($shopkeeperTwo);
 
+        if (env('QUEUE_CONNECTION') === "sync") {
+            $this->expectException(NoAllowedShopKeeperRuleException::class);
+        }
         $response = $this->postJson(route('transfer.create'), ['value' => 999, 'payer' => $shopkeeper, 'payee' => $shopkeeperTwo]);
 
         if (env('QUEUE_CONNECTION') === "sync") {
@@ -155,7 +161,23 @@ class TransactionsControllersTest extends BaseTransactions
             $this->assertEquals($statementPayee->value, $valueInTransaction);
 
         }
+    }
 
+    public function testControllerException(): void
+    {
+        $request = $this->getMockBuilder(TransactionRequest::class)
+                ->getMock();
+
+        $service = $this->getMockBuilder(TransactionServiceAsyncInterface::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['store'])
+            ->disableAutoReturnValueGeneration()
+            ->getMock();
+
+        $controller = new TransactionsController($service);
+        $request = $controller->create($request);
+        $this->assertEquals(422 ,$request->status());
+        
     }
 
     protected function assertInvalidationFields(
