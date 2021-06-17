@@ -4,7 +4,7 @@ namespace App\Domain\Financial\Transaction\Entity;
 
 use App\Domain\Financial\Transaction\Entity\Contract\CategoryPayerP2PInterface;
 
-class CategoryPayerP2P implements CategoryPayerP2PInterface
+class CategoryPayerP2P extends CategoryPayer implements CategoryPayerP2PInterface
 {
     public const IDENTIFIER = '923191b1-ebe0-4292-957f-d6674fc9f336';
 
