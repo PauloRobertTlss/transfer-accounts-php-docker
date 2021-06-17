@@ -32,7 +32,7 @@ class BankAccountModel extends Model implements BankAccountInterface
 
     public function getClient(): ClientInterface
     {
-        return $this->clientHasOne;
+        return $this->client;
     }
 
     public function getName(): string
