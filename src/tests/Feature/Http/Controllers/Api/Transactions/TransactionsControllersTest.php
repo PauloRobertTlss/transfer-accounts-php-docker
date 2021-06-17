@@ -2,6 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers\Api\Transactions;
 
+
+use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
 use App\Domain\Financial\Transaction\Service\TransactionServiceAsyncInterface;
 use App\ExternalAuthorization\ExternalAuthorizationInterface;
 use App\Http\Controllers\Api\TransactionsController;
@@ -11,11 +13,9 @@ use App\Models\Financial\Transaction\TransactionPayee;
 use App\Models\Financial\Transaction\TransactionPayer;
 use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRuleException;
 use Illuminate\Foundation\Testing\TestResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
-use SebastianBergmann\CodeCoverage\TestIdMissingException;
 use Tests\Stubs\ExternalAuthorization\ExternalValidatorSuccessStub;
 
 class TransactionsControllersTest extends BaseTransactions
@@ -143,26 +143,32 @@ class TransactionsControllersTest extends BaseTransactions
                 ->take(1)
                 ->first();
 
-            $statementPayer = TransactionPayer::query()
-                ->where('bank_account_id', '=', $bankAccountPayer->id)
-                ->where('client_done_id', '=', $idPersonTwo)
-                ->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1))
-                ->take(1)
-                ->first();
-            $this->assertEquals($statementPayer->value, $valueInTransaction);
 
-            $statementPayee = TransactionPayee::query()
-                ->where('bank_account_id', '=', $bankAccountPayee->id)
+            $statementPayer = TransactionPayer::query()
+                ->where('bank_account_id', '=', $bankAccountPayer->id())
                 ->where('client_done_id', '=', $idPersonOne)
                 ->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1))
                 ->take(1)
                 ->first();
 
+            $this->assertIsObject($statementPayer);
+            $this->assertEquals($statementPayer->value, $valueInTransaction);
+
+            $statementPayee = TransactionPayee::query()
+                ->where('bank_account_id', '=', $bankAccountPayee->id)
+                ->where('client_done_id', '=', $idPersonTwo)
+                ->where('created_at', '>', \Carbon\Carbon::now()->subMinutes(1))
+                ->take(1)
+                ->first();
+            $this->assertIsObject($statementPayer);
             $this->assertEquals($statementPayee->value, $valueInTransaction);
 
         }
     }
 
+    /**
+     * @
+     */
     public function testControllerException(): void
     {
         $request = $this->getMockBuilder(TransactionRequest::class)
@@ -177,7 +183,7 @@ class TransactionsControllersTest extends BaseTransactions
         $controller = new TransactionsController($service);
         $request = $controller->create($request);
         $this->assertEquals(422 ,$request->status());
-        
+
     }
 
     protected function assertInvalidationFields(
