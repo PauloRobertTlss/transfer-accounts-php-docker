@@ -50,8 +50,12 @@ class ManageRules implements ManageRulesInterface
             $rule = new $rule;
         }
 
+        if (!is_object($rule)) {
+            throw new \InvalidArgumentException('input argument invalid');
+        }
+
         if (!$rule instanceof RuleInterface) {
-            Log::error('Error: ' . env('APP_NAME') . ' danger' . get_class($rule) . ' not is rule', debug_backtrace(3));
+            Log::error('Error: ' . env('APP_NAME') . ' danger' . get_class($rule) . ' not is rule', []);
             throw new NoClassRuleException('Ops!' . get_class($rule) . ' not is rule');
         }
 

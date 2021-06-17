@@ -28,6 +28,6 @@ class BalanceNoZeroRule implements RuleInterface
             return true;
         }
 
-        throw new WithoutBalanceRuleException('Ops! Without balance [' . env('APP_NAME'). '] bank account ' . $account->uuid());
+        throw new WithoutBalanceRuleException('Ops! Without balance [' . env('APP_NAME'). '] bank account ' . $account->id());
     }
 }
