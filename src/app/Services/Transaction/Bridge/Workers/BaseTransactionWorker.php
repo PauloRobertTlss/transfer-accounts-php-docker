@@ -6,9 +6,6 @@ use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Domain\Financial\Transaction\Entity\Contract\{CategoryPayeeInterface, CategoryPayerInterface};
 use App\Domain\Financial\BankAccount\Repository\BankAccountRepositoryInterface;
 use App\Services\Transaction\Policies\TransactionPoliciesInterface;
-use App\Domain\Financial\Transaction\Repository\{TransactionPayeeRepositoryInterface,
-    TransactionPayerRepositoryInterface
-};
 use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
 use App\Models\CRM\Client\ClientModel;
 use App\Services\Transaction\Bridge\TransactionInterface;
@@ -21,14 +18,6 @@ use Illuminate\Support\Facades\DB;
 abstract class BaseTransactionWorker implements TransactionInterface
 {
     /**
-     * @var TransactionPayerRepositoryInterface
-     */
-    private TransactionPayerRepositoryInterface $payerRepository;
-    /**
-     * @var TransactionPayeeRepositoryInterface
-     */
-    private TransactionPayeeRepositoryInterface $payeeRepository;
-    /**
      * @var BankAccountRepositoryInterface
      */
     private BankAccountRepositoryInterface $bankAccountRepository;
@@ -40,18 +29,12 @@ abstract class BaseTransactionWorker implements TransactionInterface
     /**
      * BaseTransactionWorker constructor.
      * @param BankAccountRepositoryInterface $bankAccountRepository
-     * @param TransactionPayerRepositoryInterface $payerRepository
-     * @param TransactionPayeeRepositoryInterface $payeeRepository
      * @param TransactionPoliciesInterface $transactionPolicies
      */
     public function __construct(
         BankAccountRepositoryInterface $bankAccountRepository,
-        TransactionPayerRepositoryInterface $payerRepository,
-        TransactionPayeeRepositoryInterface $payeeRepository,
         TransactionPoliciesInterface $transactionPolicies)
     {
-        $this->payerRepository = $payerRepository;
-        $this->payeeRepository = $payeeRepository;
         $this->bankAccountRepository = $bankAccountRepository;
         $this->transactionPolicies = $transactionPolicies;
     }
@@ -65,16 +48,10 @@ abstract class BaseTransactionWorker implements TransactionInterface
 
         DB::transaction(function () use ($request) {
 
-            $payload = [
-                'payer' => $request->payer(),
-                'payee' => $request->payee(),
-                'value' => $request->value(),
-            ];
-
             /** @var ClientInterface $clientPayer */
-            $clientPayer = ClientModel::with('bankAccount')->find($payload['payer']);
+            $clientPayer = ClientModel::with('bankAccount')->find($request->payer());
             /** @var ClientInterface $clientPayee */
-            $clientPayee = ClientModel::with('bankAccount')->find($payload['payee']);
+            $clientPayee = ClientModel::with('bankAccount')->find($request->payee());
             $bankPayer = $clientPayer->getBankAccount();
             $bankPayee = $clientPayee->getBankAccount();
             /**
@@ -84,23 +61,8 @@ abstract class BaseTransactionWorker implements TransactionInterface
             $bankPayee->lockForUpdate();
             $this->transactionPolicies->assertPolicies($request);
 
-            $value = $payload['value'];
-            $this->bankAccountRepository->decreaseBalance($bankPayer->id(), $value);
-            $this->bankAccountRepository->addBalance($bankPayee->id(), $value);
-
-            $this->payerRepository->create([
-                'value' => $value,
-                'category' => $this->categoryPayer()->identifier(),
-                'bank_account_id' => $bankPayer->id(),
-                'client_done_id' => $clientPayee->uuid()
-            ]);
-
-            $this->payeeRepository->create([
-                'value' => $value,
-                'category' => $this->categoryPayee()->identifier(),
-                'bank_account_id' => $bankPayee->id(),
-                'client_done_id' => $clientPayer->uuid()
-            ]);
+            $this->bankAccountRepository->decreaseBalance($bankPayer->id(), $request->value(), $this->categoryPayer());
+            $this->bankAccountRepository->addBalance($bankPayee->id(), $request->value(), $this->categoryPayee());
 
         });
     }
