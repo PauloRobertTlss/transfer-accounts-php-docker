@@ -13,10 +13,10 @@ class TransactionFire implements BridgerTransactionInterface
     /**
      * @var TransactionRequestInterface
      */
-    private $request;
+    private TransactionRequestInterface $request;
 
     /**
-     * TransactionP2P constructor.
+     * TransactionFire constructor.
      * @param TransactionRequestInterface $request
      */
     public function __construct(TransactionRequestInterface $request)
@@ -24,6 +24,10 @@ class TransactionFire implements BridgerTransactionInterface
         $this->request = $request;
     }
 
+    /**
+     * @param TransactionInterface $work
+     * @return mixed
+     */
     public function work(TransactionInterface $work)
     {
         return $work->payload($this->request);
