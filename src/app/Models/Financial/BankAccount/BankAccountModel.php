@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BankAccountModel extends Model implements BankAccountInterface
 {
-    protected string $table = 'bank_accounts';
+    protected string $table = self::TABLE;
     public bool $timestamps = false;
 
     protected array $casts = [

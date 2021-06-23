@@ -2,8 +2,10 @@
 
 namespace App\Models\Financial\Transaction;
 
-class TransactionPayee extends AbstractTransaction
+use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayeeInterface;
+
+class TransactionPayee extends AbstractTransaction implements TransactionPayeeInterface
 {
-    protected string $table = 'transaction_payees';
+    protected string $table = self::TABLE;
 
 }

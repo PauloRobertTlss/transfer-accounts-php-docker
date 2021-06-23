@@ -17,6 +17,10 @@ abstract class AbstractTransaction extends Model implements TransactionInterface
 
     public bool $timestamps = false;
 
+    protected array $casts = [
+        'value' => 'float'
+    ];
+
     protected array $fillable = [
         'id',
         'value',
