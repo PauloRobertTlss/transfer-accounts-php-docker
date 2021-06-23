@@ -8,6 +8,8 @@ use App\Domain\Resource\ResourceUidInterface;
 
 interface BankAccountInterface extends ResourceIdInterface
 {
+    public const TABLE = 'bank_accounts';
+
     public function getAgency(): string;
 
     public function getAccount(): string;

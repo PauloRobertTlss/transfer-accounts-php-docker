@@ -7,6 +7,8 @@ use App\Domain\Resource\ResourceUidInterface;
 
 interface ClientInterface extends ResourceUidInterface
 {
+    public const TABLE = 'clients';
+
     public function getName(): string;
 
     public function getDocument();
