@@ -45,32 +45,54 @@ class BalanceNoZeroRuleUnitTest extends TestCase
             ->onlyMethods(['getBalance','getAgency','getAccount','getClient','id'])
             ->getMock();
 
-        $client = \Mockery::mock(ClientInterface::class);
-        $client
-            ->shouldReceive('getBankAccount')
-            ->once()
-            ->andReturn($bankAccount);
+        $client = $this->getMockBuilder(ClientInterface::class)
+            ->disableOriginalConstructor() // This is necessary in actual program
+            ->getMock();
+        $client->expects($this->once())
+            ->method('getBankAccount')
+            ->will($this->returnValue($bankAccount));
+
         $this->expectException(WithoutBalanceRuleException::class);
         $this->instance->parseOrFail($client);
+        $this->exactly();
 
     }
 
 
     public function testParseOrFailBalancePositive()
     {
-        $bankAccount = \Mockery::mock(BankAccountInterface::class);
-        $bankAccount
-            ->shouldReceive('getBalance')
-            ->once()
-            ->andReturn(self::VALUE *2);
 
-        $client = \Mockery::mock(ClientInterface::class);
-        $client
-            ->shouldReceive('getBankAccount')
-            ->once()
-            ->andReturn($bankAccount);
+        $bankAccount = $this->getMockBuilder(BankAccountInterface::class)
+            ->onlyMethods(['getBalance','getAgency','getAccount','getClient','id'])
+            ->getMock();
+
+        $bankAccount->expects($this->once())
+            ->method('getBalance')
+            ->willReturn(self::VALUE * 3 + 0.10);
+
+        $client = $this->getMockBuilder(ClientInterface::class)
+            ->disableOriginalConstructor() // This is necessary in actual program
+            ->getMock();
+        $client->expects($this->once())
+            ->method('getBankAccount')
+            ->willReturn($bankAccount);
+
+//        $bankAccount = \Mockery::mock(BankAccountInterface::class);
+//        $bankAccount
+//            ->shouldReceive('getBalance')
+//            ->once()
+//            ->andReturn(self::VALUE *2)->getMock();
+//
+//        $client = \Mockery::mock(ClientInterface::class);
+//        $client
+//            ->shouldReceive('getBankAccount')
+//            ->once()
+//            ->andReturn($bankAccount)->getMock();
+
         $response = $this->instance->parseOrFail($client);
         $this->assertTrue($response);
+
+//        \Mockery::close();
 
     }
 

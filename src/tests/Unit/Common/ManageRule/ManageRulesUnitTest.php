@@ -8,8 +8,12 @@ use App\Common\ManageRule\ManageRulesInterface;
 use App\Common\ManageRule\Types\NoAllowedShopkeeperRule;
 use App\Domain\CRM\Client\Entity\ClientInterface;
 use Illuminate\Support\Facades\Log;
-use PHPUnit\Framework\TestCase;
+
+//use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
+use Tests\Stubs\ExternalAuthorization\ExternalValidatorSuccessStub;
+use Tests\TestCase;
 use Tests\Traits\TestInstance;
 
 class ManageRulesUnitTest extends TestCase
@@ -25,8 +29,20 @@ class ManageRulesUnitTest extends TestCase
     {
         parent::setUp();
         $this->instance = new ManageRules();
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
+            ->setMethods([
+                'emergency',
+                'alert',
+                'critical',
+                'error',
+                'warning',
+                'notice',
+                'info',
+                'debug',
+                'log'
+            ])
+            ->getMock();
     }
-
 
     public function namespace(): string
     {
@@ -38,23 +54,23 @@ class ManageRulesUnitTest extends TestCase
         $this->assertInstance();
     }
 
-    public function testObjectType()
+    public function testObjectType(): void
     {
         $this->assertInstanceOf(ManageRulesInterface::class, $this->instance);
     }
 
-    public function testHasMethods()
+    public function testHasMethods(): void
     {
         $this->assertTrue(method_exists($this->instance, 'resetRules'));
     }
 
-    public function testGetTypeErrorException()
+    public function testGetTypeErrorException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->instance->pushRule(1111);
     }
 
-    public function testRulesFieldStartedEmpty()
+    public function testRulesFieldStartedEmpty(): void
     {
         $reflectionClass = new \ReflectionClass(ManageRules::class);
         $reflectionProperty = $reflectionClass->getProperty('rules');
@@ -65,21 +81,23 @@ class ManageRulesUnitTest extends TestCase
 
     }
 
-    public function testPushStringWithoutNamespace()
+    public function testPushStringWithoutNamespace(): void
     {
         $uuid = Uuid::uuid4()->toString();
         $this->expectExceptionMessage("Class '{$uuid}' not found");
         $this->instance->pushRule($uuid);
     }
 
-    public function testPushObjectNoRule()
+    public function testPushObjectNoRule(): void
     {
-        Log::shouldReceive('error')->andReturnSelf();
+
+//      Log::shouldReceive('error');
         $this->expectException(NoClassRuleException::class);
-        $this->instance->pushRule(new \Mockery());
+        $this->instance->pushRule(new ExternalValidatorSuccessStub());
+
     }
 
-    public function testRulesField()
+    public function testRulesField(): void
     {
         $reflectionClass = new \ReflectionClass(ManageRules::class);
         $reflectionProperty = $reflectionClass->getProperty('rules');
@@ -90,20 +108,19 @@ class ManageRulesUnitTest extends TestCase
         $this->assertNotEmpty($rules);
     }
 
-    public function testParseRulesOneClient()
+    public function testParseRulesOneClient(): void
     {
         $onError = false;
         $client = $this->getMockBuilder(ClientInterface::class)->getMock();
+
         $this->instance->pushRule(new NoAllowedShopkeeperRule());
         try {
             $this->instance->parseRules($client);
-        }catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             $onError = true;
         }
 
         $this->assertFalse($onError);
-
-
 
     }
 
