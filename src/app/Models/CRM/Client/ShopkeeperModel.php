@@ -5,10 +5,9 @@ namespace App\Models\CRM\Client;
 use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
 use Illuminate\Database\Eloquent\Model;
 
-
 class ShopkeeperModel extends Model implements ShopkeeperInterface
 {
-    protected string $table = 'shopkeepers';
+    protected string $table = self::TABLE;
 
     protected array $fillable = [
         'id',

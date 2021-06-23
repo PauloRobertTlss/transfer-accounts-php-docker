@@ -5,13 +5,18 @@ namespace App\Models\CRM\Client;
 use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
 use App\Models\Financial\BankAccount\BankAccountModel;
+use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid as BaseUuid;
 
 class ClientModel extends Model implements ClientInterface
 {
-    protected string $table = 'clients';
+    use Uuid;
+
+    protected string $table = self::TABLE;
     protected string $keyType = 'string';
     public bool $timestamps = false;
+    public bool $incrementing = false;
 
     protected array $fillable = [
         'id',
@@ -41,7 +46,7 @@ class ClientModel extends Model implements ClientInterface
 
     public function uuid(): string
     {
-        return $this->id;
+        return $this->id ?: BaseUuid::uuid4()->toString();
     }
 
     /**

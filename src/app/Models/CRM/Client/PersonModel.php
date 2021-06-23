@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PersonModel extends Model implements PersonInterface
 {
-    protected string $table = 'persons';
+    protected string $table = self::TABLE;
 
     protected array $fillable = [
         'id',
