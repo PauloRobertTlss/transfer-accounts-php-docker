@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Stubs\Common\Repositories;
+namespace Tests\Unit\Common\Repositories;
 
 use App\Common\Repositories\Contract\RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use PHPUnit\Framework\TestCase;
+use Tests\Stubs\Common\Repositories\BaseRepositoryStub;
 
 class BaseRepositoryUnitTest extends TestCase
 {

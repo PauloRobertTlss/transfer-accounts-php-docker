@@ -4,7 +4,9 @@ namespace Tests\Unit\Models\CRM;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Models\CRM\Client\ClientModel;
+use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Tests\TestCase;
 
 /**
@@ -45,6 +47,14 @@ class ClientUnitTest extends TestCase
         ];
 
         self::assertEquals($fillable, $this->clientModel->getFillable());
+    }
+
+    public function testIfUseTraits(): void
+    {
+        $traits = [Uuid::class];
+        $clientTraits = array_keys(class_uses(ClientModel::class));
+
+        self::assertEquals($traits, $clientTraits);
     }
 
     public function testCastsAttribute(): void

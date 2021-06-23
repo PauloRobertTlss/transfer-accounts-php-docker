@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\UnitServices\Transaction\Bridge\Workers;
+namespace Tests\Unit\Services\Transaction\Bridge\Workers;
 
 use App\Domain\Financial\BankAccount\Repository\BankAccountRepositoryInterface;
 use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;

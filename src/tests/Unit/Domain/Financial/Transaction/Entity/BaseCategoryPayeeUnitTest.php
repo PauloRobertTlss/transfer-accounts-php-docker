@@ -5,7 +5,7 @@ namespace Tests\Unit\Domain\Financial\Transaction\Entity;
 use App\Domain\Financial\Transaction\Entity\Contract\CategoryPayeeInterface;
 use PHPUnit\Framework\TestCase;
 
-abstract class CategoryPayeeUnitTest extends TestCase
+abstract class BaseCategoryPayeeUnitTest extends TestCase
 {
     /**
      * @return string

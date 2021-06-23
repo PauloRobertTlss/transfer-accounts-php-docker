@@ -5,7 +5,7 @@ namespace Tests\Unit\Domain\Financial\Transaction\Entity;
 
 use App\Domain\Financial\Transaction\Entity\CategoryPayeeP2P;
 
-class CategoryPayeeP2PUnitTest extends CategoryPayeeUnitTest
+class CategoryPayeeP2PUnitTest extends BaseCategoryPayeeUnitTest
 {
     public function testInstanceResponsible(): void
     {

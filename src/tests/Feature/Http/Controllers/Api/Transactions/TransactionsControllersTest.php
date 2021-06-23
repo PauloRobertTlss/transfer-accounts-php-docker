@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers\Api\Transactions;
 
 
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
 use App\Domain\Financial\Transaction\Service\TransactionServiceAsyncInterface;
 use App\ExternalAuthorization\ExternalAuthorizationInterface;
 use App\Http\Controllers\Api\TransactionsController;
@@ -14,7 +13,6 @@ use App\Models\Financial\Transaction\TransactionPayer;
 use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRuleException;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Tests\Stubs\ExternalAuthorization\ExternalValidatorSuccessStub;
 

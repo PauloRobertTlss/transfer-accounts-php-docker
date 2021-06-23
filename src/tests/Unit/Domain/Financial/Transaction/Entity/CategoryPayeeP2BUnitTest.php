@@ -8,7 +8,7 @@ use App\Domain\Financial\Transaction\Entity\CategoryPayeeP2B;
  * Class CategoryPayeeP2BUnitTest
  * @package Tests\Unit\Domain\Financial\Transaction\Entity
  */
-class CategoryPayeeP2BUnitTest extends CategoryPayeeUnitTest
+class CategoryPayeeP2BUnitTest extends BaseCategoryPayeeUnitTest
 {
     public function testInstanceResponsible(): void
     {
