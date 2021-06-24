@@ -12,7 +12,7 @@ Project developed during the "backend" phase at FIAP College.
 Started environment:
 
 ```bash
-docker-composer up -d
+docker-composer up -d --build
 ```
 ## [PHPinsights](https://phpinsights.com/insights/code.html#forbidden-functions)
 
