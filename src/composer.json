@@ -1,10 +1,12 @@
 {
-    "name": "laravel/laravel",
+    "name": "transfer/accounts",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Use schema to the payer or payee",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "clear",
+        "onion"
     ],
     "license": "MIT",
     "require": {
@@ -15,10 +17,12 @@
         "laravel/tinker": "^2.5"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "facade/ignition": "^1.16.15",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
+        "nunomaduro/phpinsights": "^2.0",
         "phpunit/phpunit": "^8.5.8|^9.3.3"
     },
     "config": {
