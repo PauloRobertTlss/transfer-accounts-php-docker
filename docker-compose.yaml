@@ -12,8 +12,9 @@ services:
         - _DB_HOST=db
         - _DB_DATABASE=transfer_accounts
         - _DB_USERNAME=root
-        - _DB_PASSWORD=root
+        - _DB_PASSWORD=@123456
         - _TEST_DB_DATABASE=transfer_accounts_test
+        - XDEBUG_MODE=coverage
     volumes:
       - .:/var/www
     networks:
