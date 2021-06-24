@@ -9,9 +9,9 @@ final class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        DB::listen(function ($exect) {
-            echo $exect->sql . PHP_EOL;
-            echo json_encode($exect->bindings) . PHP_EOL;
-        });
+//        DB::listen(function ($exect) {
+//            echo $exect->sql . PHP_EOL;
+//            echo json_encode($exect->bindings) . PHP_EOL;
+//        });
     }
 }
