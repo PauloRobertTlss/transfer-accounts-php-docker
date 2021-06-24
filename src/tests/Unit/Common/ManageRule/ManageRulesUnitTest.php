@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Common\ManageRule;
 
-use App\Common\ManageRule\Exceptions\NoClassRuleException;
+use App\Common\ManageRule\Exceptions\NoClassRule;
 use App\Common\ManageRule\ManageRules;
 use App\Common\ManageRule\ManageRulesInterface;
 use App\Common\ManageRule\Types\NoAllowedShopkeeperRule;
@@ -92,7 +92,7 @@ class ManageRulesUnitTest extends TestCase
     {
 
 //      Log::shouldReceive('error');
-        $this->expectException(NoClassRuleException::class);
+        $this->expectException(NoClassRule::class);
         $this->instance->pushRule(new ExternalValidatorSuccessStub());
 
     }

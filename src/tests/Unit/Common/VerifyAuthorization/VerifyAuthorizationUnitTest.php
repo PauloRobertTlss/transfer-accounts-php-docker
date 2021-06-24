@@ -3,7 +3,7 @@
 namespace Tests\Unit\Common\VerifyAuthorization;
 
 use App\Common\VerifyAuthorization\VerifyAuthorization;
-use App\Common\VerifyAuthorization\Exceptions\{NoGrantedException, ServiceOfflineException};
+use App\Common\VerifyAuthorization\Exceptions\{NoGranted, ServiceOffline};
 use Tests\Stubs\ExternalAuthorization\{ExternalValidatorErrorStub,ExternalValidatorOfflineStub,ExternalValidatorSuccessStub};
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class VerifyAuthorizationUnitTest extends TestCase
     public function testNoGrantedError()
     {
         $forceError = new ExternalValidatorErrorStub();
-        $this->expectException(NoGrantedException::class);
+        $this->expectException(NoGranted::class);
         (new VerifyAuthorization($forceError))->grantAuthorization(['xpto']);
 
     }
@@ -38,7 +38,7 @@ class VerifyAuthorizationUnitTest extends TestCase
     {
 
         $forceError = new ExternalValidatorOfflineStub();
-        $this->expectException(ServiceOfflineException::class);
+        $this->expectException(ServiceOffline::class);
         (new VerifyAuthorization($forceError))->grantAuthorization(['xpto']);
 
     }

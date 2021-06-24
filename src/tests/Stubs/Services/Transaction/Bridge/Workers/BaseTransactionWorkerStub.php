@@ -2,13 +2,13 @@
 
 namespace Tests\Stubs\Services\Transaction\Bridge\Workers;
 
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Services\Transaction\Bridge\TransactionInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
+use App\Services\Transaction\Bridge\Transaction;
 
-class BaseTransactionWorkerStub implements TransactionInterface
+class BaseTransactionWorkerStub implements Transaction
 {
 
-    public function payload(TransactionRequestInterface $request)
+    public function payload(TransactionRequest $request)
     {
         return true;
     }

@@ -7,7 +7,7 @@ use App\ExternalAuthorization\Validators\Validator;
  * Class ExternalValidator
  * @package App\ExternalAuthorization
  */
-class ExternalValidator implements ExternalAuthorizationInterface
+final class ExternalValidator implements ExternalAuthorization
 {
     /**
      * @param string $type
@@ -26,7 +26,7 @@ class ExternalValidator implements ExternalAuthorizationInterface
     /**
      * @param $class
      * @param $namespace
-     * @return mixed
+     * @return Validator
      */
     private function load($class, $namespace): Validator
     {

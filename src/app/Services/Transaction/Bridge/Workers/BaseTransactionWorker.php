@@ -3,49 +3,51 @@
 namespace App\Services\Transaction\Bridge\Workers;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
+use App\Domain\Financial\BankAccount\Repository\BankAccountRepository;
 use App\Domain\Financial\Transaction\Entity\Contract\{CategoryPayeeInterface, CategoryPayerInterface};
-use App\Domain\Financial\BankAccount\Repository\BankAccountRepositoryInterface;
-use App\Services\Transaction\Policies\TransactionPoliciesInterface;
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
 use App\Models\CRM\Client\ClientModel;
-use App\Services\Transaction\Bridge\TransactionInterface;
+use App\Services\Transaction\Bridge\Transaction;
+use App\Services\Transaction\Policies\TransactionPolicies;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class BaseTransactionWorker
  * @package App\Services\Transaction\Bridge\Workers
  */
-abstract class BaseTransactionWorker implements TransactionInterface
+abstract class BaseTransactionWorker implements Transaction
 {
+    abstract protected function categoryPayer(): CategoryPayerInterface;
+
+    abstract protected function categoryPayee(): CategoryPayeeInterface;
+
     /**
-     * @var BankAccountRepositoryInterface
+     * @var BankAccountRepository
      */
-    private BankAccountRepositoryInterface $bankAccountRepository;
+    private BankAccountRepository $bankAccountRepository;
+
+
     /**
-     * @var TransactionPoliciesInterface
+     * @var TransactionPolicies
      */
-    private TransactionPoliciesInterface $transactionPolicies;
+    private TransactionPolicies $transactionPolicies;
 
     /**
      * BaseTransactionWorker constructor.
-     * @param BankAccountRepositoryInterface $bankAccountRepository
-     * @param TransactionPoliciesInterface $transactionPolicies
+     * @param BankAccountRepository $bankAccountRepository
+     * @param TransactionPolicies $transactionPolicies
      */
     public function __construct(
-        BankAccountRepositoryInterface $bankAccountRepository,
-        TransactionPoliciesInterface $transactionPolicies)
+        BankAccountRepository $bankAccountRepository,
+        TransactionPolicies $transactionPolicies
+    )
     {
         $this->bankAccountRepository = $bankAccountRepository;
         $this->transactionPolicies = $transactionPolicies;
     }
 
-    abstract protected function categoryPayer(): CategoryPayerInterface;
-
-    abstract protected function categoryPayee(): CategoryPayeeInterface;
-
-    public function payload(TransactionRequestInterface $request)
+    public function payload(TransactionRequest $request): bool
     {
-
         DB::transaction(function () use ($request) {
 
             /** @var ClientInterface $clientPayer */
@@ -65,6 +67,7 @@ abstract class BaseTransactionWorker implements TransactionInterface
             $this->bankAccountRepository->addBalance($bankPayee->id(), $request->value(), $this->categoryPayee());
 
         });
+        return true;
     }
 
 }

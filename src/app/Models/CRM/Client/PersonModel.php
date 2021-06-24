@@ -2,10 +2,10 @@
 
 namespace App\Models\CRM\Client;
 
-use App\Domain\CRM\Client\Entity\PersonInterface;
+use App\Domain\CRM\Client\Entity\Person;
 use Illuminate\Database\Eloquent\Model;
 
-class PersonModel extends Model implements PersonInterface
+final class PersonModel extends Model implements Person
 {
     protected string $table = self::TABLE;
 

@@ -2,10 +2,10 @@
 
 namespace App\ExternalAuthorization;
 /**
- * Interface ExternalAuthorizationInterface
+ * Interface ExternalAuthorization
  * @package App\ExternalAuthorization
  */
-interface ExternalAuthorizationInterface
+interface ExternalAuthorization
 {
     /**
      * @param string $type

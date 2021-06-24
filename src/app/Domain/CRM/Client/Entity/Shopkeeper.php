@@ -2,7 +2,7 @@
 
 namespace App\Domain\CRM\Client\Entity;
 
-interface ShopkeeperInterface
+interface Shopkeeper
 {
     public const TABLE = 'shopkeepers';
 

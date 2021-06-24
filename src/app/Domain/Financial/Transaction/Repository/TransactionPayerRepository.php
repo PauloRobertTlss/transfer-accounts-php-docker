@@ -4,7 +4,7 @@ namespace App\Domain\Financial\Transaction\Repository;
 
 use App\Common\Repositories\Contract\RepositoryInterface;
 
-interface TransactionPayeeRepositoryInterface extends RepositoryInterface
+interface TransactionPayerRepository extends RepositoryInterface
 {
 
 }

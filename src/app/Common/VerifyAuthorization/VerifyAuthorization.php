@@ -2,28 +2,28 @@
 
 namespace App\Common\VerifyAuthorization;
 
-use App\ExternalAuthorization\ExternalAuthorizationInterface;
+use App\Common\VerifyAuthorization\Exceptions\{NoGranted, ServiceOffline};
+use App\ExternalAuthorization\ExternalAuthorization;
 use GuzzleHttp\Exception\ClientException;
-use App\Common\VerifyAuthorization\Exceptions\{NoGrantedException, ServiceOfflineException};
 use Illuminate\Support\Facades\Log;
 
 /**
  * Class VerifyAuthorization
  * @package App\Common\VerifyAuthorization
  */
-class VerifyAuthorization implements VerifyAuthorizationInterface
+final class VerifyAuthorization implements VerifyAuthorizationInterface
 {
     public const EXTERNAL_VALIDATOR = 'transaction';
     /**
-     * @var ExternalAuthorizationInterface
+     * @var ExternalAuthorization
      */
-    private ExternalAuthorizationInterface $serviceAuthorization;
+    private ExternalAuthorization $serviceAuthorization;
 
     /**
      * VerifyAuthorization constructor.
-     * @param ExternalAuthorizationInterface $serviceAuthorization
+     * @param ExternalAuthorization $serviceAuthorization
      */
-    public function __construct(ExternalAuthorizationInterface $serviceAuthorization)
+    public function __construct(ExternalAuthorization $serviceAuthorization)
     {
         $this->serviceAuthorization = $serviceAuthorization;
     }
@@ -40,13 +40,13 @@ class VerifyAuthorization implements VerifyAuthorizationInterface
 
             Log::error('Ops! Service grant ' . env('APP_NAME') . ' offline', debug_backtrace(3));
             if ($exception instanceof ClientException) {
-                throw new ServiceOfflineException('Ops! Offline service grant');
+                throw new ServiceOffline('Ops! Offline service grant');
             }
         }
 
         Log::info('Ops! Service grant ' . env('APP_NAME') . ' not allowed');
 
-        throw new NoGrantedException('Ops! Transaction no granted');
+        throw new NoGranted('Ops! Transaction no granted');
 
     }
 }

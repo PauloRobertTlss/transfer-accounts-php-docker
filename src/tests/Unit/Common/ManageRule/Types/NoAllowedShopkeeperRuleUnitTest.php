@@ -3,11 +3,10 @@
 namespace Tests\Unit\Common\ManageRule\Types;
 
 use App\Common\ManageRule\Contract\RuleInterface;
-use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRuleException;
+use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRule as NoAllowedShopKeeperRuleException;
 use App\Common\ManageRule\Types\NoAllowedShopkeeperRule;
 use App\Domain\CRM\Client\Entity\ClientInterface;
 use Illuminate\Support\Facades\Log;
-//use PHPUnit\Framework\TestCase;
 use Tests\Stubs\Domain\CRM\Client\Entity\PersonStub;
 use Tests\Stubs\Domain\CRM\Client\Entity\ShopkeeperStub;
 use Tests\TestCase;

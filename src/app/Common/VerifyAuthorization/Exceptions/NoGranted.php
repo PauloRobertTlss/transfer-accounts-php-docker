@@ -3,7 +3,7 @@
 namespace App\Common\VerifyAuthorization\Exceptions;
 
 
-class NoGrantedException extends \Exception
+final class NoGranted extends \Exception
 {
 
 }

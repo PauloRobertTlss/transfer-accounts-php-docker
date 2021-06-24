@@ -4,7 +4,7 @@ namespace App\Domain\Resource;
 
 use Illuminate\Support\Carbon;
 
-interface TimestampUidInterface extends ResourceUidInterface
+interface Timestamp extends ResourceUidInterface
 {
     public function createdAt(): Carbon;
 }

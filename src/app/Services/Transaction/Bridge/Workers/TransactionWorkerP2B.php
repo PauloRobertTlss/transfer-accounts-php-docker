@@ -2,14 +2,14 @@
 
 namespace App\Services\Transaction\Bridge\Workers;
 
-use App\Domain\Financial\Transaction\Entity\{CategoryPayeeP2B, CategoryPayerP2B};
 use App\Domain\Financial\Transaction\Entity\Contract\{CategoryPayeeInterface, CategoryPayerInterface};
+use App\Domain\Financial\Transaction\Entity\{CategoryPayeeP2B, CategoryPayerP2B};
 
 /**
  * Class TransactionWorkerP2B
  * @package App\Services\Transaction\Bridge\Workers
  */
-class TransactionWorkerP2B extends BaseTransactionWorker
+final class TransactionWorkerP2B extends BaseTransactionWorker
 {
 
     protected function categoryPayer(): CategoryPayerInterface

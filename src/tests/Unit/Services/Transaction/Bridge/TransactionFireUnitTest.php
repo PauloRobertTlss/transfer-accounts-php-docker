@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Services\Transaction\Bridge;
 
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Services\Transaction\Bridge\BridgerTransactionInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
+use App\Services\Transaction\Bridge\BridgerTransaction;
 use App\Services\Transaction\Bridge\TransactionFire;
 use PHPUnit\Framework\TestCase;
 
@@ -12,14 +12,14 @@ class TransactionFireUnitTest extends TestCase
 {
 
     /**
-     * @var TransactionRequestInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var TransactionRequest|\PHPUnit\Framework\MockObject\MockObject
      */
-    public TransactionRequestInterface $request;
+    public TransactionRequest $request;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->request = $this->getMockBuilder(TransactionRequestInterface::class)->getMock();
+        $this->request = $this->getMockBuilder(TransactionRequest::class)->getMock();
 
     }
 
@@ -38,7 +38,7 @@ class TransactionFireUnitTest extends TestCase
     public function testObjectType(): void
     {
         $instance = new TransactionFire($this->request);
-        $this->assertInstanceOf(BridgerTransactionInterface::class, $instance);
+        $this->assertInstanceOf(BridgerTransaction::class, $instance);
     }
 
     public function testFillFieldRequest(): void

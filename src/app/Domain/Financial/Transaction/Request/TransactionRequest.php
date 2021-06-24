@@ -2,7 +2,7 @@
 
 namespace App\Domain\Financial\Transaction\Request;
 
-interface TransactionRequestInterface
+interface TransactionRequest
 {
     public function value(): float;
 

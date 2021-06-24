@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers\Api\Transactions;
 
-use App\ExternalAuthorization\ExternalAuthorizationInterface;
-use App\Common\VerifyAuthorization\Exceptions\NoGrantedException;
+use App\ExternalAuthorization\ExternalAuthorization;
+use App\Common\VerifyAuthorization\Exceptions\NoGranted;
 use Tests\Stubs\ExternalAuthorization\ExternalValidatorErrorStub;
 use Tests\Stubs\ExternalAuthorization\ExternalValidatorOfflineStub;
 
@@ -15,9 +15,9 @@ class TransactionsErrorControllersTest extends BaseTransactions
         /**
          * Force stub error
          */
-        $this->instance(ExternalAuthorizationInterface::class, new ExternalValidatorErrorStub());
+        $this->instance(ExternalAuthorization::class, new ExternalValidatorErrorStub());
 
-        $this->expectException(NoGrantedException::class);
+        $this->expectException(NoGranted::class);
         [$idPersonOne, $idPersonTwo] = $this->startedTransactionP2P();
 
         $response = $this->postJson(route('transfer.create'), ['value' => 999, 'payer' => $idPersonOne, 'payee' => $idPersonTwo]);
@@ -30,7 +30,7 @@ class TransactionsErrorControllersTest extends BaseTransactions
         /**
          * Force stub error guzzle
          */
-        $this->instance(ExternalAuthorizationInterface::class, new ExternalValidatorOfflineStub());
+        $this->instance(ExternalAuthorization::class, new ExternalValidatorOfflineStub());
         [$idPersonOne, $idPersonTwo] = $this->startedTransactionP2P();
 
         $response = $this->postJson(route('transfer.create'), ['value' => 999, 'payer' => $idPersonOne, 'payee' => $idPersonTwo]);

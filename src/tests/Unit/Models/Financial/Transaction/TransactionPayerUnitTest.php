@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Models\Financial\Transaction;
 
-use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayerInterface;
+use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayer as TransactionPayerContract;
 use App\Models\Financial\Transaction\TransactionPayer;
-use PHPUnit\Framework\TestCase;
 
 class TransactionPayerUnitTest extends BaseTransactionUnitTest
 {
@@ -15,12 +14,12 @@ class TransactionPayerUnitTest extends BaseTransactionUnitTest
 
     protected function transactionInterface(): string
     {
-        return TransactionPayerInterface::class;
+        return TransactionPayerContract::class;
     }
 
     protected function table(): string
     {
-        return TransactionPayerInterface::TABLE;
+        return TransactionPayer::TABLE;
     }
 
 }

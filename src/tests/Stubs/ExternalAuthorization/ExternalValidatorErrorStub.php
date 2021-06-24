@@ -2,10 +2,10 @@
 
 namespace Tests\Stubs\ExternalAuthorization;
 
-use App\ExternalAuthorization\ExternalAuthorizationInterface;
+use App\ExternalAuthorization\ExternalAuthorization as ExternalAuthorizationContract;
 use Mockery\Exception;
 
-class ExternalValidatorErrorStub implements ExternalAuthorizationInterface
+class ExternalValidatorErrorStub implements ExternalAuthorizationContract
 {
     public function fire(string $type, array $payload): string
     {

@@ -3,10 +3,10 @@
 namespace App\Domain\Financial\BankAccount\Entity\Contract;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Resource\ResourceIdInterface;
+use App\Domain\Resource\ResourceId;
 use App\Domain\Resource\ResourceUidInterface;
 
-interface BankAccountInterface extends ResourceIdInterface
+interface BankAccount extends ResourceId
 {
     public const TABLE = 'bank_accounts';
 

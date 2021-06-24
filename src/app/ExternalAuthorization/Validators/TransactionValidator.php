@@ -2,13 +2,13 @@
 
 namespace App\ExternalAuthorization\Validators;
 
-class TransactionValidator implements Validator
+final class TransactionValidator implements Validator
 {
     /**
      * @param array $payload
      * @return array
      */
-    public function body(array $payload)
+    public function body(array $payload): array
     {
         return [
             'type' => 'check_please',

@@ -3,7 +3,7 @@
 namespace App\Common\VerifyAuthorization\Exceptions;
 
 
-class ServiceOfflineException extends \Exception
+final class ServiceOffline extends \Exception
 {
 
 }

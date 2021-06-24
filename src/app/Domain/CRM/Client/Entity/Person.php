@@ -2,7 +2,7 @@
 
 namespace App\Domain\CRM\Client\Entity;
 
-interface PersonInterface
+interface Person
 {
     public const TABLE = 'persons';
 

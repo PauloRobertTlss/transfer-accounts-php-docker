@@ -10,7 +10,7 @@ interface RepositoryInterface
 {
     /**
      * @param array $args
-     * @return mixed
+     * @return array
      */
-    public function create(array $args);
+    public function create(array $args): array;
 }

@@ -3,10 +3,10 @@
 namespace Tests\Unit\Common\ManageRule\Types;
 
 use App\Common\ManageRule\Contract\RuleInterface;
-use App\Common\ManageRule\Exceptions\WithoutBalanceRuleException;
+use App\Common\ManageRule\Exceptions\WithoutBalanceRule;
 use App\Common\ManageRule\Types\BalanceNoZeroRule;
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccount;
 use PHPUnit\Framework\TestCase;
 
 class BalanceNoZeroRuleUnitTest extends TestCase
@@ -41,7 +41,7 @@ class BalanceNoZeroRuleUnitTest extends TestCase
 
     public function testParseOrFailEnoughBalance()
     {
-        $bankAccount = $this->getMockBuilder(BankAccountInterface::class)
+        $bankAccount = $this->getMockBuilder(BankAccount::class)
             ->onlyMethods(['getBalance','getAgency','getAccount','getClient','id'])
             ->getMock();
 
@@ -52,7 +52,7 @@ class BalanceNoZeroRuleUnitTest extends TestCase
             ->method('getBankAccount')
             ->will($this->returnValue($bankAccount));
 
-        $this->expectException(WithoutBalanceRuleException::class);
+        $this->expectException(WithoutBalanceRule::class);
         $this->instance->parseOrFail($client);
         $this->exactly();
 
@@ -62,7 +62,7 @@ class BalanceNoZeroRuleUnitTest extends TestCase
     public function testParseOrFailBalancePositive()
     {
 
-        $bankAccount = $this->getMockBuilder(BankAccountInterface::class)
+        $bankAccount = $this->getMockBuilder(BankAccount::class)
             ->onlyMethods(['getBalance','getAgency','getAccount','getClient','id'])
             ->getMock();
 
@@ -77,7 +77,7 @@ class BalanceNoZeroRuleUnitTest extends TestCase
             ->method('getBankAccount')
             ->willReturn($bankAccount);
 
-//        $bankAccount = \Mockery::mock(BankAccountInterface::class);
+//        $bankAccount = \Mockery::mock(BankAccount::class);
 //        $bankAccount
 //            ->shouldReceive('getBalance')
 //            ->once()

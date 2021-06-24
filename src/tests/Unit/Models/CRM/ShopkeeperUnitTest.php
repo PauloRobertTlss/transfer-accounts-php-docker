@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models\CRM;
 
-use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
+use App\Domain\CRM\Client\Entity\Shopkeeper;
 use App\Models\CRM\Client\ShopkeeperModel;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
@@ -14,9 +14,9 @@ use Tests\TestCase;
 class ShopkeeperUnitTest extends TestCase
 {
     /**
-     * @var ShopkeeperInterface
+     * @var Shopkeeper
      */
-    private ShopkeeperInterface $shopKeeperModel;
+    private Shopkeeper $shopKeeperModel;
 
     protected function setUp(): void
     {
@@ -31,7 +31,7 @@ class ShopkeeperUnitTest extends TestCase
 
     public function testObjectType(): void
     {
-        self::assertInstanceOf(ShopkeeperInterface::class, $this->shopKeeperModel);
+        self::assertInstanceOf(Shopkeeper::class, $this->shopKeeperModel);
     }
 
     public function testFillableAttribute(): void
@@ -61,7 +61,7 @@ class ShopkeeperUnitTest extends TestCase
         $reflectionProperty->setAccessible(true);
 
         $table = $reflectionProperty->getValue($this->shopKeeperModel);
-        self::assertEquals(ShopkeeperInterface::TABLE, $table);
+        self::assertEquals(Shopkeeper::TABLE, $table);
     }
 
     public function testKeyType(): void

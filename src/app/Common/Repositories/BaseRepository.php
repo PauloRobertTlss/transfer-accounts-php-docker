@@ -46,13 +46,13 @@ abstract class BaseRepository implements RepositoryInterface
 
     /**
      * @param array $attributes
-     * @return Model
+     * @return array
      */
-    public function create(array $attributes)
+    public function create(array $attributes): array
     {
         $model = $this->scope->newInstance($attributes);
         $model->save();
-        return $model;
+        return $model->toArray();
     }
 
 

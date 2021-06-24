@@ -3,12 +3,12 @@
 namespace App\Models\Financial\BankAccount;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccount;
 use App\Models\CRM\Client\ClientModel;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
-class BankAccountModel extends Model implements BankAccountInterface
+final class BankAccountModel extends Model implements BankAccount
 {
     protected string $table = self::TABLE;
     public bool $timestamps = false;

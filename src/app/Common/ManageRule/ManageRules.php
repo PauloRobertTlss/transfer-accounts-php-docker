@@ -2,27 +2,23 @@
 
 namespace App\Common\ManageRule;
 
-use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Common\ManageRule\Contract\RuleInterface;
-use App\Common\ManageRule\Exceptions\NoClassRuleException;
+use App\Common\ManageRule\Exceptions\NoClassRule;
+use App\Domain\CRM\Client\Entity\ClientInterface;
 use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 
 /**
  * Class ManageRules
  * @package App\Common\ManageRule
  */
-class ManageRules implements ManageRulesInterface
+final class ManageRules implements ManageRulesInterface
 {
     private array $rules;
 
     public function __construct()
     {
         $this->resetRules();
-        $this->boot();
-    }
-
-    public function boot()
-    {
     }
 
     public function parseRules(ClientInterface $client): void
@@ -42,21 +38,21 @@ class ManageRules implements ManageRulesInterface
     /**
      * @param RuleInterface|string $rule
      * @return $this
-     * @throws NoClassRuleException
+     * @throws NoClassRule
      */
     public function pushRule($rule): self
     {
         if (is_string($rule)) {
-            $rule = new $rule;
+            $rule = new $rule();
         }
 
         if (!is_object($rule)) {
-            throw new \InvalidArgumentException('input argument invalid');
+            throw new InvalidArgumentException('input argument invalid');
         }
 
         if (!$rule instanceof RuleInterface) {
             Log::error('Error: ' . env('APP_NAME') . ' danger' . get_class($rule) . ' not is rule', []);
-            throw new NoClassRuleException('Ops!' . get_class($rule) . ' not is rule');
+            throw new NoClassRule('Ops!' . get_class($rule) . ' not is rule');
         }
 
         $this->rules[] = $rule;

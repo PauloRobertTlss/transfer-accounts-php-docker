@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models\Financial\BankAccount;
 
-use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccount;
 use App\Models\Financial\BankAccount\BankAccountModel;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
@@ -10,9 +10,9 @@ use Tests\TestCase;
 class BankAccountModelUnitTest extends TestCase
 {
     /**
-     * @var BankAccountInterface
+     * @var BankAccount
      */
-    private BankAccountInterface $clientModel;
+    private BankAccount $clientModel;
 
     protected function setUp(): void
     {
@@ -27,7 +27,7 @@ class BankAccountModelUnitTest extends TestCase
 
     public function testObjectType(): void
     {
-        self::assertInstanceOf(BankAccountInterface::class, $this->clientModel);
+        self::assertInstanceOf(BankAccount::class, $this->clientModel);
     }
 
     public function testFillableAttribute(): void
@@ -71,7 +71,7 @@ class BankAccountModelUnitTest extends TestCase
         $reflectionProperty->setAccessible(true);
 
         $table = $reflectionProperty->getValue($this->clientModel);
-        self::assertEquals(BankAccountInterface::TABLE, $table);
+        self::assertEquals(BankAccount::TABLE, $table);
     }
 
     public function testKeyType(): void

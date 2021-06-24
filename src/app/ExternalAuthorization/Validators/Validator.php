@@ -9,7 +9,7 @@ interface Validator
 {
     /**
      * @param array $payload
-     * @return mixed
+     * @return array
      */
-    public function body(array $payload);
+    public function body(array $payload): array;
 }

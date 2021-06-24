@@ -2,9 +2,9 @@
 
 namespace Tests\Stubs\ExternalAuthorization;
 
-use App\ExternalAuthorization\ExternalAuthorizationInterface;
+use App\ExternalAuthorization\ExternalAuthorization as ExternalAuthorizationContract;
 
-class ExternalValidatorSuccessStub implements ExternalAuthorizationInterface
+class ExternalValidatorSuccessStub implements ExternalAuthorizationContract
 {
 
     public function fire(string $type, array $payload): string

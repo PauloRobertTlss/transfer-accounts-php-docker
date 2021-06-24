@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Transaction;
 
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest as TransactionRequestContract;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TransactionRequest extends FormRequest implements TransactionRequestInterface
+class TransactionRequest extends FormRequest implements TransactionRequestContract
 {
 
     public const RULE_CLIENT_EXIST = 'required|exists:clients,id,deleted_at,NULL';

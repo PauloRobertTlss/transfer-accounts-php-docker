@@ -2,26 +2,23 @@
 
 namespace App\Common\ManageRule\Types;
 
-use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
 use App\Common\ManageRule\Contract\RuleInterface;
-use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRuleException;
+use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRule as Exception;
+use App\Domain\CRM\Client\Entity\{ClientInterface,Shopkeeper};
 use Illuminate\Support\Facades\Log;
-use Monolog\Logger;
 
-class NoAllowedShopkeeperRule implements RuleInterface
+final class NoAllowedShopkeeperRule implements RuleInterface
 {
 
     public function parseOrFail(ClientInterface $client): bool
     {
         $personOrShopkeeper = $client->getDocument();
 
-        if (!$personOrShopkeeper instanceof ShopkeeperInterface) {
+        if (!$personOrShopkeeper instanceof Shopkeeper) {
             return true;
         }
 
-        /** @var ShopkeeperInterface $document */
         Log::error('Transaction not allowed [' . env('APP_NAME') . '] cpnj:' . $personOrShopkeeper->cnpj());
-        throw new NoAllowedShopKeeperRuleException('Ops! ShopKeeper [' . env('APP_NAME'). '] no allowed ' . $personOrShopkeeper->cnpj());
+        throw new Exception('Ops! ShopKeeper [' . env('APP_NAME'). '] no allowed ' . $personOrShopkeeper->cnpj());
     }
 }

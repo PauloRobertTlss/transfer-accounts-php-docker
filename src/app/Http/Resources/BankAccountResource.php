@@ -4,13 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BankAccountResource extends JsonResource
+final class BankAccountResource extends JsonResource
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return array
-     */
-    public function toArray($request)
+    public function toArray()
     {
         return [
             'balance' => $this->balance,

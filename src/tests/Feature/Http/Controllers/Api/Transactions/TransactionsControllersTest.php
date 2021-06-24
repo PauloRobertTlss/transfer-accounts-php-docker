@@ -3,14 +3,14 @@
 namespace Tests\Feature\Http\Controllers\Api\Transactions;
 
 
-use App\Domain\Financial\Transaction\Service\TransactionServiceAsyncInterface;
-use App\ExternalAuthorization\ExternalAuthorizationInterface;
+use App\Domain\Financial\Transaction\Service\TransactionServiceAsync;
+use App\ExternalAuthorization\ExternalAuthorization as ExternalAuthorizationContract;
 use App\Http\Controllers\Api\TransactionsController;
 use App\Http\Requests\Transaction\TransactionRequest;
 use App\Models\Financial\BankAccount\BankAccountModel;
 use App\Models\Financial\Transaction\TransactionPayee;
 use App\Models\Financial\Transaction\TransactionPayer;
-use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRuleException;
+use App\Common\ManageRule\Exceptions\NoAllowedShopKeeperRule;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Support\Facades\Lang;
 use Ramsey\Uuid\Uuid;
@@ -25,7 +25,7 @@ class TransactionsControllersTest extends BaseTransactions
         /**
          * Force stub
          */
-        $this->instance(ExternalAuthorizationInterface::class, new ExternalValidatorSuccessStub());
+        $this->instance(ExternalAuthorizationContract::class, new ExternalValidatorSuccessStub());
 
     }
 
@@ -52,7 +52,7 @@ class TransactionsControllersTest extends BaseTransactions
 
     }
 
-    public function testStoreTransactionP2P()
+    public function testStoreTransactionP2P(): void
     {
         [$idPersonOne, $idPersonTwo] = $this->startedTransactionP2P();
 
@@ -72,7 +72,7 @@ class TransactionsControllersTest extends BaseTransactions
 
     public function testInvalidateTypeTransactionShopkeeperToPerson()
     {
-        $this->expectException(NoAllowedShopKeeperRuleException::class);
+        $this->expectException(NoAllowedShopKeeperRule::class);
         [$idPersonOne, $shopkeeperId] = $this->startedTransactionP2B();
 
         $response = $this->postJson(route('transfer.create'), ['value' => 999, 'payer' => $shopkeeperId, 'payee' => $idPersonOne]);
@@ -90,7 +90,7 @@ class TransactionsControllersTest extends BaseTransactions
         $this->factoryShopkeeper($shopkeeperTwo);
 
         if (env('QUEUE_CONNECTION') === "sync") {
-            $this->expectException(NoAllowedShopKeeperRuleException::class);
+            $this->expectException(NoAllowedShopKeeperRule::class);
         }
         $response = $this->postJson(route('transfer.create'), ['value' => 999, 'payer' => $shopkeeper, 'payee' => $shopkeeperTwo]);
 
@@ -172,7 +172,7 @@ class TransactionsControllersTest extends BaseTransactions
         $request = $this->getMockBuilder(TransactionRequest::class)
                 ->getMock();
 
-        $service = $this->getMockBuilder(TransactionServiceAsyncInterface::class)
+        $service = $this->getMockBuilder(TransactionServiceAsync::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['store'])
             ->disableAutoReturnValueGeneration()

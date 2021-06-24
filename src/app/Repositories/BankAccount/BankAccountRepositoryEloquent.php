@@ -3,11 +3,11 @@
 namespace App\Repositories\BankAccount;
 
 use App\Common\Repositories\BaseRepository;
-use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
-use App\Domain\Financial\BankAccount\Repository\BankAccountRepositoryInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccount;
+use App\Domain\Financial\BankAccount\Repository\BankAccountRepository;
 use App\Domain\Financial\Transaction\Entity\Contract\{CategoryPayeeInterface, CategoryPayerInterface};
-use App\Domain\Financial\Transaction\Repository\{TransactionPayeeRepositoryInterface,
-    TransactionPayerRepositoryInterface
+use App\Domain\Financial\Transaction\Repository\{TransactionPayeeRepository,
+    TransactionPayerRepository
 };
 use App\Models\Financial\BankAccount\BankAccountModel;
 
@@ -15,24 +15,26 @@ use App\Models\Financial\BankAccount\BankAccountModel;
  * Class BankAccountRepositoryEloquent
  * @package App\Repositories\BankAccount
  */
-class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepositoryInterface
+final class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepository
 {
     /**
-     * @var TransactionPayerRepositoryInterface
+     * @var TransactionPayerRepository
      */
-    private TransactionPayerRepositoryInterface $payerRepository;
+    private TransactionPayerRepository $payerRepository;
     /**
-     * @var TransactionPayeeRepositoryInterface
+     * @var TransactionPayeeRepository
      */
-    private TransactionPayeeRepositoryInterface $payeeRepository;
+    private TransactionPayeeRepository $payeeRepository;
 
     /**
      * BankAccountRepositoryEloquent constructor.
-     * @param TransactionPayerRepositoryInterface $payerRepository
-     * @param TransactionPayeeRepositoryInterface $payeeRepository
+     * @param TransactionPayerRepository $payerRepository
+     * @param TransactionPayeeRepository $payeeRepository
      */
-    public function __construct(TransactionPayerRepositoryInterface $payerRepository,
-                                TransactionPayeeRepositoryInterface $payeeRepository)
+    public function __construct(
+        TransactionPayerRepository $payerRepository,
+        TransactionPayeeRepository $payeeRepository
+    )
     {
         parent::__construct();
 
@@ -45,9 +47,9 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
         return BankAccountModel::class;
     }
 
-    public function addBalance(int $id, float $newValue, CategoryPayeeInterface $category)
+    public function addBalance(int $id, float $newValue, CategoryPayeeInterface $category): BankAccount
     {
-        /** @var BankAccountInterface $model */
+        /** @var BankAccount $model */
         $model = $this->scope->with('client')->find($id);
         $model->balance = $category->operation($model->balance, $newValue);
         $model->save();
@@ -65,9 +67,9 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
     }
 
 
-    public function decreaseBalance(int $id, float $newValue, CategoryPayerInterface $category)
+    public function decreaseBalance(int $id, float $newValue, CategoryPayerInterface $category): BankAccount
     {
-        /** @var BankAccountInterface $model */
+        /** @var BankAccount $model */
         $model = $this->scope->with('client')->find($id);
         $model->balance = $category->operation($model->balance, $newValue);
         $model->save();

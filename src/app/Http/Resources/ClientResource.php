@@ -2,17 +2,15 @@
 
 namespace App\Http\Resources;
 
-use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Models\CRM\Client\ShopkeeperModel;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClientResource extends JsonResource
+final class ClientResource extends JsonResource
 {
     /**
-     * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray()
     {
         return [
             'name' => $this->name,
@@ -23,12 +21,10 @@ class ClientResource extends JsonResource
         ];
     }
 
-    private function type()
+    private function type(): string
     {
-        /** @var ClientInterface $client */
-        $client = $this->resource;
 
-        if ($client->getDocument() instanceof ShopkeeperModel) {
+        if ($this->resource->getDocument() instanceof ShopkeeperModel) {
             return 'CNPJ';
         }
 

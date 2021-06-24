@@ -2,8 +2,8 @@
 
 namespace App\Common\ManageRule;
 
-use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Common\ManageRule\Contract\RuleInterface;
+use App\Domain\CRM\Client\Entity\ClientInterface;
 
 interface ManageRulesInterface
 {

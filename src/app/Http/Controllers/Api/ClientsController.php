@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Domain\CRM\Client\Entity\PersonInterface;
-use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
+use App\Domain\CRM\Client\Entity\Person;
+use App\Domain\CRM\Client\Entity\Shopkeeper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientResource;
 use App\Models\CRM\Client\ClientModel;
@@ -17,7 +17,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
  * Class ClientsController
  * @package App\Http\Controllers\Api
  */
-class ClientsController extends Controller
+final class ClientsController extends Controller
 {
     /**
      * @return AnonymousResourceCollection

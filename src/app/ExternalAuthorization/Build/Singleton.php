@@ -2,18 +2,18 @@
 
 namespace App\ExternalAuthorization\Build;
 
-use App\ExternalAuthorization\{ExternalAuthorizationInterface, ExternalValidator};
+use App\ExternalAuthorization\{ExternalAuthorization, ExternalValidator};
 
 /**
  * Class Singleton
  * @package App\ExternalAuthorization\Build
  */
-class Singleton
+final class Singleton
 {
     /**
-     * @var ExternalAuthorizationInterface|null
+     * @var ExternalAuthorization|null
      */
-    private static ?ExternalAuthorizationInterface $instance;
+    private static ?ExternalAuthorization $instance;
 
     private function __construct()
     {
@@ -25,7 +25,7 @@ class Singleton
         // Do nothing
     }
 
-    public static function instance(): ?ExternalAuthorizationInterface
+    public static function instance(): ?ExternalAuthorization
     {
         if (self::$instance === null) {
             self::$instance = new ExternalValidator();

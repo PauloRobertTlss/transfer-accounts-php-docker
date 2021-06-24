@@ -3,17 +3,16 @@
 namespace App\Services\Transaction\Policies;
 
 use App\Common\ManageRule\ManageRulesInterface;
-use App\Common\VerifyAuthorization\VerifyAuthorizationInterface;
-use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Models\CRM\Client\ClientModel;
 use App\Common\ManageRule\Types\BalanceNoZeroRule;
+use App\Common\VerifyAuthorization\VerifyAuthorizationInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
+use App\Models\CRM\Client\ClientModel;
 
 /**
  * Class BalanceRuleAndGrantPolicies
- * @package App\Services\Transaction
+ * @package App\Services\Transaction\Policies
  */
-class BalanceRuleAndGrantPolicies implements TransactionPoliciesInterface
+final class BalanceRuleAndGrantPolicies implements TransactionPolicies
 {
     /**
      * @var VerifyAuthorizationInterface
@@ -35,7 +34,11 @@ class BalanceRuleAndGrantPolicies implements TransactionPoliciesInterface
         $this->manageRules = $manageRules;
     }
 
-    public function assertPolicies(TransactionRequestInterface $request): void
+    /**
+     * @param TransactionRequest $request
+     * @throws \Exception
+     */
+    public function assertPolicies(TransactionRequest $request): void
     {
         $payload = [
             'payer' => $request->payer(),
@@ -51,11 +54,9 @@ class BalanceRuleAndGrantPolicies implements TransactionPoliciesInterface
      * @param array $payload
      * @throws \Exception
      */
-    private function assertRules(array $payload)
+    private function assertRules(array $payload): void
     {
-        /** @var ClientInterface $clientPayee */
         $clientPayer = ClientModel::with('bankAccount')->find($payload['payer']);
-
         $this->manageRules
             ->pushRule(new BalanceNoZeroRule($payload['value']))
             ->parseRules($clientPayer);

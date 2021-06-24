@@ -3,7 +3,7 @@
 namespace App\Common\ManageRule\Exceptions;
 
 
-class NoAllowedShopKeeperRuleException extends \Exception
+final class NoClassRule extends \Exception
 {
 
 }

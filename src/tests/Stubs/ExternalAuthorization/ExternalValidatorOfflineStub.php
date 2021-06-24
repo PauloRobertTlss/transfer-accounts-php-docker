@@ -2,14 +2,12 @@
 
 namespace Tests\Stubs\ExternalAuthorization;
 
-use App\ExternalAuthorization\ExternalAuthorizationInterface;
+use App\ExternalAuthorization\ExternalAuthorization as ExternalAuthorizationContract;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Mockery\Exception;
 
-class ExternalValidatorOfflineStub implements ExternalAuthorizationInterface
+class ExternalValidatorOfflineStub implements ExternalAuthorizationContract
 {
     public function fire(string $type, array $payload): string
     {

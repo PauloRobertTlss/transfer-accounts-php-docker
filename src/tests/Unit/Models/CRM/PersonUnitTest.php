@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models\CRM;
 
-use App\Domain\CRM\Client\Entity\PersonInterface;
+use App\Domain\CRM\Client\Entity\Person;
 use App\Models\CRM\Client\PersonModel;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
@@ -14,9 +14,9 @@ use Tests\TestCase;
 class PersonUnitTest extends TestCase
 {
     /**
-     * @var PersonInterface
+     * @var Person
      */
-    private PersonInterface $personModel;
+    private Person $personModel;
 
     protected function setUp(): void
     {
@@ -31,7 +31,7 @@ class PersonUnitTest extends TestCase
 
     public function testObjectType(): void
     {
-        self::assertInstanceOf(PersonInterface::class, $this->personModel);
+        self::assertInstanceOf(Person::class, $this->personModel);
     }
 
     public function testFillableAttribute(): void
@@ -61,7 +61,7 @@ class PersonUnitTest extends TestCase
         $reflectionProperty->setAccessible(true);
 
         $table = $reflectionProperty->getValue($this->personModel);
-        self::assertEquals(PersonInterface::TABLE, $table);
+        self::assertEquals(Person::TABLE, $table);
     }
 
     public function testKeyType(): void

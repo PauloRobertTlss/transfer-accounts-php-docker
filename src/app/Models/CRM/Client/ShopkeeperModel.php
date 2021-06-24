@@ -2,10 +2,10 @@
 
 namespace App\Models\CRM\Client;
 
-use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
+use App\Domain\CRM\Client\Entity\Shopkeeper;
 use Illuminate\Database\Eloquent\Model;
 
-class ShopkeeperModel extends Model implements ShopkeeperInterface
+final class ShopkeeperModel extends Model implements Shopkeeper
 {
     protected string $table = self::TABLE;
 

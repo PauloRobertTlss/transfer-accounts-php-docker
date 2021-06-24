@@ -2,8 +2,9 @@
 
 namespace App\Domain\Financial\Transaction\Entity\Contract;
 
-interface TransactionPayerInterface
+
+interface TransactionPayee
 {
-    public const TABLE = 'transaction_payers';
+    public const TABLE = 'transaction_payees';
 
 }

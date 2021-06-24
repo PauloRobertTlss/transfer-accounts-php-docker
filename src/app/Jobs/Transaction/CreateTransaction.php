@@ -3,29 +3,28 @@
 namespace App\Jobs\Transaction;
 
 use App\Common\ManageRule\ManageRulesInterface;
-use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Models\CRM\Client\ClientModel;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
-use App\Services\Transaction\Bridge\{TransactionFire, TransactionInterface};
-use App\Services\Transaction\Bridge\Workers\{TransactionWorkerP2B, TransactionWorkerP2P};
 use App\Common\ManageRule\Types\{NoAllowedShopkeeperRule};
-use App\Common\VerifyAuthorization\Exceptions\ServiceOfflineException;
+use App\Common\VerifyAuthorization\Exceptions\ServiceOffline;
+use App\Domain\CRM\Client\Entity\{ClientInterface,Shopkeeper};
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
+use App\Models\CRM\Client\ClientModel;
+use App\Services\Transaction\Bridge\Workers\{TransactionWorkerP2B, TransactionWorkerP2P};
+use App\Services\Transaction\Bridge\{Transaction,TransactionFire};
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class CreateTransaction implements ShouldQueue
+final class CreateTransaction implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * @var TransactionRequestInterface
+     * @var TransactionRequest
      */
-    public $request;
+    protected TransactionRequest $request;
     /**
      * @var ManageRulesInterface
      */
@@ -33,10 +32,10 @@ class CreateTransaction implements ShouldQueue
 
     /**
      * CreateTransaction constructor.
-     * @param TransactionRequestInterface $request
+     * @param TransactionRequest $request
      * @param ManageRulesInterface $manageRules
      */
-    public function __construct(TransactionRequestInterface $request, ManageRulesInterface $manageRules)
+    public function __construct(TransactionRequest $request, ManageRulesInterface $manageRules)
     {
         $this->request = $request;
         $this->manageRules = $manageRules;
@@ -59,7 +58,7 @@ class CreateTransaction implements ShouldQueue
             (new TransactionFire($this->request))->work($typeTransaction);
         } catch (\Exception $exception) {
 
-            if ($exception instanceof ServiceOfflineException) {
+            if ($exception instanceof ServiceOffline) {
                 $this->release(2);
                 Log::error('Job service grant . ' . env('APP_NAME') . '  offline ', debug_backtrace(3));
                 return true;
@@ -79,20 +78,18 @@ class CreateTransaction implements ShouldQueue
      */
     private function assertRules(ClientInterface $clientPayer): void
     {
-        /** @var ClientModel $clientPayee */
-        $this->manageRules->pushRule(NoAllowedShopkeeperRule::class)
+        $this->manageRules
+            ->pushRule(NoAllowedShopkeeperRule::class)
             ->parseRules($clientPayer);
-
     }
 
     /**
      * @param ClientInterface $clientPayee
-     * @return TransactionInterface
+     * @return Transaction
      */
-    private function targetTaskTransaction(ClientInterface $clientPayee): TransactionInterface
+    private function targetTaskTransaction(ClientInterface $clientPayee): Transaction
     {
-        $document = $clientPayee->document();
-        if ($document instanceof ShopkeeperInterface) {
+        if ($clientPayee->document() instanceof Shopkeeper) {
             return resolve(TransactionWorkerP2B::class);
         }
 

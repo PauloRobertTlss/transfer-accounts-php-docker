@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Models\Financial\Transaction;
 
-use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayeeInterface;
+use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayee as TransactionPayeeContract;
 use App\Models\Financial\Transaction\TransactionPayee;
 
 class TransactionPayeeUnitTest extends BaseTransactionUnitTest
@@ -14,12 +14,12 @@ class TransactionPayeeUnitTest extends BaseTransactionUnitTest
 
     protected function transactionInterface(): string
     {
-        return TransactionPayeeInterface::class;
+        return TransactionPayeeContract::class;
     }
 
     protected function table(): string
     {
-        return TransactionPayeeInterface::TABLE;
+        return TransactionPayee::TABLE;
     }
 
 }

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Services\Transaction\Bridge\Workers;
 
-use App\Domain\Financial\BankAccount\Repository\BankAccountRepositoryInterface;
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Services\Transaction\Bridge\TransactionInterface;
+use App\Domain\Financial\BankAccount\Repository\BankAccountRepository;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
+use App\Services\Transaction\Bridge\Transaction;
 use App\Services\Transaction\Bridge\Workers\{BaseTransactionWorker, TransactionWorkerP2P};
-use App\Services\Transaction\Policies\TransactionPoliciesInterface;
+use App\Services\Transaction\Policies\TransactionPolicies;
 use Tests\TestCase;
 
 /**
@@ -16,18 +16,18 @@ use Tests\TestCase;
 class TransactionWorkerP2PUnitTest extends TestCase
 {
     /**
-     * @var TransactionRequestInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var TransactionRequest|\PHPUnit\Framework\MockObject\MockObject
      */
-    public TransactionRequestInterface $request;
+    public TransactionRequest $request;
     private \PHPUnit\Framework\MockObject\MockObject $bankRepository;
     private \PHPUnit\Framework\MockObject\MockObject $servicePolicies;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->request = $this->getMockBuilder(TransactionRequestInterface::class)->getMock();
-        $this->bankRepository = $this->getMockBuilder(BankAccountRepositoryInterface::class)->getMock();
-        $this->servicePolicies = $this->getMockBuilder(TransactionPoliciesInterface::class)->getMock();
+        $this->request = $this->getMockBuilder(TransactionRequest::class)->getMock();
+        $this->bankRepository = $this->getMockBuilder(BankAccountRepository::class)->getMock();
+        $this->servicePolicies = $this->getMockBuilder(TransactionPolicies::class)->getMock();
 
     }
 
@@ -48,7 +48,7 @@ class TransactionWorkerP2PUnitTest extends TestCase
     {
         $instance = new TransactionWorkerP2P($this->bankRepository, $this->servicePolicies);
         $this->assertInstanceOf(BaseTransactionWorker::class, $instance);
-        $this->assertInstanceOf(TransactionInterface::class, $instance);
+        $this->assertInstanceOf(Transaction::class, $instance);
     }
 
 }

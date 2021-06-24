@@ -3,7 +3,7 @@
 namespace App\Models\Financial\Transaction;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccount;
 use App\Domain\Financial\Transaction\Entity\Contract\TransactionInterface;
 use App\Models\CRM\Client\ClientModel;
 use App\Models\Financial\BankAccount\BankAccountModel;
@@ -11,7 +11,7 @@ use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-abstract class AbstractTransaction extends Model implements TransactionInterface
+abstract class BaseTransaction extends Model implements TransactionInterface
 {
     use Uuid;
 
@@ -29,17 +29,18 @@ abstract class AbstractTransaction extends Model implements TransactionInterface
         'client_done_id'
     ];
     /**
-     * @var mixed
+     * @var float
      */
-    private $value;
+    private float $value;
     /**
-     * @var mixed
+     * @var BankAccount
      */
-    private $bankAccount;
+    private BankAccount $bankAccount;
+
     /**
-     * @var mixed
+     * @var ClientInterface
      */
-    private $client;
+    private ClientInterface $client;
 
     public function uuid(): string
     {
@@ -56,7 +57,7 @@ abstract class AbstractTransaction extends Model implements TransactionInterface
         return (float)$this->value;
     }
 
-    public function getBankAccount(): BankAccountInterface
+    public function getBankAccount(): BankAccount
     {
         return $this->bankAccount;
     }

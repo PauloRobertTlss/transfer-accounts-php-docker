@@ -3,10 +3,10 @@
 namespace App\Repositories\Transactions;
 
 use App\Common\Repositories\BaseRepository;
-use App\Domain\Financial\Transaction\Repository\TransactionPayerRepositoryInterface;
+use App\Domain\Financial\Transaction\Repository\TransactionPayerRepository;
 use App\Models\Financial\Transaction\TransactionPayer;
 
-class TransactionPayerRepositoryEloquent extends BaseRepository implements TransactionPayerRepositoryInterface
+final class TransactionPayerRepositoryEloquent extends BaseRepository implements TransactionPayerRepository
 {
     public function model(): string
     {

@@ -2,33 +2,29 @@
 
 namespace App\Services\Transaction\Bridge;
 
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
 
 /**
  * Class TransactionFire
  * @package App\Services\Transaction\Bridge
  */
-class TransactionFire implements BridgerTransactionInterface
+final class TransactionFire implements BridgerTransaction
 {
     /**
-     * @var TransactionRequestInterface
+     * @var TransactionRequest
      */
-    private TransactionRequestInterface $request;
+    private TransactionRequest $request;
 
     /**
      * TransactionFire constructor.
-     * @param TransactionRequestInterface $request
+     * @param TransactionRequest $request
      */
-    public function __construct(TransactionRequestInterface $request)
+    public function __construct(TransactionRequest $request)
     {
         $this->request = $request;
     }
 
-    /**
-     * @param TransactionInterface $work
-     * @return mixed
-     */
-    public function work(TransactionInterface $work)
+    public function work(Transaction $work): bool
     {
         return $work->payload($this->request);
     }

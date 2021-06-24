@@ -11,7 +11,7 @@ trait Uuid
         parent::boot();
 
         static::creating(function ($obj) {
-            if (empty($obj->id)) {
+            if (is_null($obj->id)) {
                 $obj->id = BaseUuid::uuid4();
             }
         });

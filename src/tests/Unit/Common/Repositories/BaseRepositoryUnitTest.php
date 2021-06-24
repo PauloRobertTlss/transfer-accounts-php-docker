@@ -66,8 +66,8 @@ class BaseRepositoryUnitTest extends TestCase
             'attribute' => 'xp'
         ];
 
-        $rsponse = $this->instance->create($data);
-        $this->assertInstanceOf(Model::class, $rsponse);
+        $response = $this->instance->create($data);
+        $this->assertIsArray($response);
     }
 
 

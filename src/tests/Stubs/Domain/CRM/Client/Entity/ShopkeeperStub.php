@@ -2,9 +2,9 @@
 
 namespace Tests\Stubs\Domain\CRM\Client\Entity;
 
-use App\Domain\CRM\Client\Entity\ShopkeeperInterface;
+use App\Domain\CRM\Client\Entity\Shopkeeper;
 
-class ShopkeeperStub implements ShopkeeperInterface
+class ShopkeeperStub implements Shopkeeper
 {
 
     public function cnpj(): string

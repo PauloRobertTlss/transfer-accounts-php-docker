@@ -3,13 +3,12 @@
 namespace App\Models\CRM\Client;
 
 use App\Domain\CRM\Client\Entity\ClientInterface;
-use App\Domain\Financial\BankAccount\Entity\Contract\BankAccountInterface;
+use App\Domain\Financial\BankAccount\Entity\Contract\BankAccount;
 use App\Models\Financial\BankAccount\BankAccountModel;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
-use Ramsey\Uuid\Uuid as BaseUuid;
 
-class ClientModel extends Model implements ClientInterface
+final class ClientModel extends Model implements ClientInterface
 {
     use Uuid;
 
@@ -46,13 +45,13 @@ class ClientModel extends Model implements ClientInterface
 
     public function uuid(): string
     {
-        return $this->id ?: BaseUuid::uuid4()->toString();
+        return $this->id;
     }
 
     /**
-     * @return BankAccountInterface
+     * @return BankAccount
      */
-    public function getBankAccount(): BankAccountInterface
+    public function getBankAccount(): BankAccount
     {
         return $this->bankAccount;
     }

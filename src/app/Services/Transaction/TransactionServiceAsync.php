@@ -3,15 +3,15 @@
 namespace App\Services\Transaction;
 
 use App\Common\ManageRule\ManageRulesInterface;
-use App\Domain\Financial\Transaction\Request\TransactionRequestInterface;
-use App\Domain\Financial\Transaction\Service\TransactionServiceAsyncInterface;
+use App\Domain\Financial\Transaction\Request\TransactionRequest;
+use App\Domain\Financial\Transaction\Service\TransactionServiceAsync as TransactionServiceAsyncContract;
 use App\Jobs\Transaction\CreateTransaction;
 
 /**
  * Class TransactionServiceAsync
  * @package App\Services\Transaction
  */
-class TransactionServiceAsync implements TransactionServiceAsyncInterface
+final class TransactionServiceAsync implements TransactionServiceAsyncContract
 {
     /**
      * @var ManageRulesInterface
@@ -28,12 +28,12 @@ class TransactionServiceAsync implements TransactionServiceAsyncInterface
     }
 
     /**
-     * @param TransactionRequestInterface $request
-     * @return bool
+     * @param TransactionRequest $request
+     * @return array
      */
-    public function store(TransactionRequestInterface $request): array
+    public function store(TransactionRequest $request): array
     {
-        CreateTransaction::dispatchAfterResponse($request,$this->manageRules);
+        CreateTransaction::dispatchAfterResponse($request, $this->manageRules);
         return ['message' => 'started queues'];
 
     }

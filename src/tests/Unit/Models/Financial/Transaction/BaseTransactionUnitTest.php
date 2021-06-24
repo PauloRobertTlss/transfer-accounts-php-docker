@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Models\Financial\Transaction;
 
-use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayeeInterface;
-use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayerInterface;
+use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayee;
+use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayer;
 use PHPUnit\Framework\TestCase;
 
 abstract class BaseTransactionUnitTest extends TestCase
 {
     /**
-     * @var TransactionPayeeInterface|TransactionPayerInterface
+     * @var TransactionPayee|TransactionPayer
      */
     private $transaction;
 

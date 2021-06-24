@@ -2,7 +2,7 @@
 
 namespace App\Common\ManageRule\Exceptions;
 
-class WithoutBalanceRuleException extends \Exception
+final class WithoutBalanceRule extends \Exception
 {
 
 }

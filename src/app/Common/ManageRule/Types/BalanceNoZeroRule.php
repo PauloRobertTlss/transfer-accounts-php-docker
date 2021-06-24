@@ -2,11 +2,11 @@
 
 namespace App\Common\ManageRule\Types;
 
-use App\Domain\CRM\Client\Entity\ClientInterface;
 use App\Common\ManageRule\Contract\RuleInterface;
-use App\Common\ManageRule\Exceptions\WithoutBalanceRuleException;
+use App\Common\ManageRule\Exceptions\WithoutBalanceRule;
+use App\Domain\CRM\Client\Entity\ClientInterface;
 
-class BalanceNoZeroRule implements RuleInterface
+final class BalanceNoZeroRule implements RuleInterface
 {
     private float $value;
 
@@ -28,6 +28,6 @@ class BalanceNoZeroRule implements RuleInterface
             return true;
         }
 
-        throw new WithoutBalanceRuleException('Ops! Without balance [' . env('APP_NAME'). '] bank account ' . $account->id());
+        throw new WithoutBalanceRule('Ops! Without balance [' . env('APP_NAME'). '] bank account ' . $account->id());
     }
 }
