@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 final class PersonModel extends Model implements Person
 {
-    protected string $table = self::TABLE;
+    protected $table = self::TABLE;
 
-    protected array $fillable = [
+    protected $fillable = [
         'id',
         'document'
     ];
 
-    public bool $timestamps = false;
+    public $timestamps = false;
 
     public function cpf(): string
     {

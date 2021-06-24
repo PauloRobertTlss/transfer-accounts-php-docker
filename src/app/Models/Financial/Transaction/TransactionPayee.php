@@ -6,6 +6,6 @@ use App\Domain\Financial\Transaction\Entity\Contract\TransactionPayee as Transac
 
 final class TransactionPayee extends BaseTransaction implements TransactionPayeeContract
 {
-    protected string $table = self::TABLE;
+    protected  $table = self::TABLE;
 
 }

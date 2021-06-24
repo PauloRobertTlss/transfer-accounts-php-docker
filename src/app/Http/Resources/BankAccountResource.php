@@ -6,12 +6,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 final class BankAccountResource extends JsonResource
 {
-    public function toArray()
+    public function toArray($request)
     {
-        return [
-            'balance' => $this->balance,
-            'account' => $this->account,
-            'agency' => $this->agency
-        ];
+        return parent::toArray();
     }
 }

@@ -12,19 +12,19 @@ final class ClientModel extends Model implements ClientInterface
 {
     use Uuid;
 
-    protected string $table = self::TABLE;
-    protected string $keyType = 'string';
-    public bool $timestamps = false;
-    public bool $incrementing = false;
+    protected $table = self::TABLE;
+    protected $keyType = 'string';
+    public $timestamps = false;
+    public  $incrementing = false;
 
-    protected array $fillable = [
+    protected  $fillable = [
         'id',
         'name',
         'document_type',
         'document_id'
     ];
 
-    protected array $casts = [
+    protected $casts = [
         'id' => 'string'
     ];
 

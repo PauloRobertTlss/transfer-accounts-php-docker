@@ -10,15 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 
 final class BankAccountModel extends Model implements BankAccount
 {
-    protected string $table = self::TABLE;
-    public bool $timestamps = false;
+    protected $table = self::TABLE;
+    public  $timestamps = false;
 
-    protected array $casts = [
+    protected  $casts = [
         'balance' => 'float',
         'client_id' => 'string'
     ];
 
-    protected array $fillable = [
+    protected  $fillable = [
         'agency',
         'account',
         'balance',

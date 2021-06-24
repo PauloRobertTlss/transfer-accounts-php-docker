@@ -10,15 +10,9 @@ final class ClientResource extends JsonResource
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray($request): array
     {
-        return [
-            'name' => $this->name,
-            'uuid' => $this->id,
-            'created_at' => $this->created_at,
-            'type' => $this->type(),
-            'bank_accounts' => new BankAccountResource($this->bankAccount)
-        ];
+        return parent::toArray($request);
     }
 
     private function type(): string

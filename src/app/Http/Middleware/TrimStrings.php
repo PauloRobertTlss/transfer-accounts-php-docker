@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 final class TrimStrings extends Middleware
 {
-    protected array $except = [
+    protected $except = [
         'password',
         'password_confirmation',
     ];

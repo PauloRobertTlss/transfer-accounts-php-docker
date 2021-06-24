@@ -15,13 +15,13 @@ abstract class BaseTransaction extends Model implements TransactionInterface
 {
     use Uuid;
 
-    public bool $timestamps = false;
+    public  $timestamps = false;
 
-    protected array $casts = [
+    protected  $casts = [
         'value' => 'float'
     ];
 
-    protected array $fillable = [
+    protected  $fillable = [
         'id',
         'value',
         'category',

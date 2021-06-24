@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 */
 Route::group(['namespace' => 'Api'], function () {
     Route::post('transfers', 'TransactionsController@create')->name('transfer.create');
+
+
     Route::get('clients', 'ClientsController@index')->name('clients.all');
     Route::get('clients/persons', 'ClientsController@persons')->name('clients.persons');
     Route::get('clients/shopkeepers', 'ClientsController@shopkeepers')->name('clients.shopkeepers');
