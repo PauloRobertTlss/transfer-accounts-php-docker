@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/opt/project/tests" tests="97" assertions="127" errors="0" warnings="2" failures="0" skipped="0" time="2.363034">
+    <testsuite name="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" tests="9" assertions="29" errors="0" warnings="0" failures="0" skipped="0" time="0.918164">
+      <testcase name="testiInValidationRequired" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="33" assertions="10" time="0.190907"/>
+      <testcase name="testExistsClientDB" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="44" assertions="6" time="0.049825">
+        <system-out>select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["e04f59e9-45e6-4327-91ae-b67427cb0b0f"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["e04f59e9-45e6-4327-91ae-b67427cb0b0f"]
+</system-out>
+      </testcase>
+      <testcase name="testStoreTransactionP2P" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="55" assertions="1" time="0.171319">
+        <system-out>insert into `persons` (`document`) values (?)
+["996.596.762-48"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b","Larry Mertz","App\\Models\\CRM\\Client\\PersonModel",161]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["6487-5","60528-7",1000,"a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+insert into `persons` (`document`) values (?)
+["234.993.446-28"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["832189be-eb2a-49fe-b29d-2b83ff7c196f","Lupe Mraz Jr.","App\\Models\\CRM\\Client\\PersonModel",162]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["4336-5","5025-48",1000,"832189be-eb2a-49fe-b29d-2b83ff7c196f"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["832189be-eb2a-49fe-b29d-2b83ff7c196f"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[161]
+select * from `clients` where `clients`.`id` = ? limit 1
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["832189be-eb2a-49fe-b29d-2b83ff7c196f"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["832189be-eb2a-49fe-b29d-2b83ff7c196f"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[161]
+transaction---------------------------stub authorized
+	send payload: {"payer":"a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b","payee":"832189be-eb2a-49fe-b29d-2b83ff7c196f","value":999}
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[229]
+select * from `clients` where `clients`.`id` in (?)
+["a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[1,229]
+insert into `transaction_payers` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[999,"923191b1-ebe0-4292-957f-d6674fc9f336",229,"a6d5fe37-9228-41c3-9ea4-0fd8ce233f2b","b39005cf-a4a3-4c69-8e90-f059f4de0992"]
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[230]
+select * from `clients` where `clients`.`id` in (?)
+["832189be-eb2a-49fe-b29d-2b83ff7c196f"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[1999,230]
+insert into `transaction_payees` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[999,"6fa44502-1ebc-4de8-b834-e4dd10a9651b",230,"832189be-eb2a-49fe-b29d-2b83ff7c196f","7ae0f40c-b053-4b15-b68f-cd08dc0e37c9"]
+</system-out>
+      </testcase>
+      <testcase name="testStoreTransactionP2B" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="64" assertions="1" time="0.104484">
+        <system-out>insert into `persons` (`document`) values (?)
+["609.468.212-58"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486","Vivien Kiehn","App\\Models\\CRM\\Client\\PersonModel",163]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["842-2","6252-79",1000,"ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+insert into `shopkeepers` (`document`) values (?)
+["4539366861642"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["3b1f8bfa-48c3-4f19-9cc9-16ea28756c79","Alayna Bogan","App\\Models\\CRM\\Client\\ShopkeeperModel",51]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["1603-3","26674-26",1000,"3b1f8bfa-48c3-4f19-9cc9-16ea28756c79"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["3b1f8bfa-48c3-4f19-9cc9-16ea28756c79"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[163]
+select * from `clients` where `clients`.`id` = ? limit 1
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["3b1f8bfa-48c3-4f19-9cc9-16ea28756c79"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["3b1f8bfa-48c3-4f19-9cc9-16ea28756c79"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[163]
+transaction---------------------------stub authorized
+	send payload: {"payer":"ba4bdc01-1e6d-40b1-8b61-6e4a813ed486","payee":"3b1f8bfa-48c3-4f19-9cc9-16ea28756c79","value":999}
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[231]
+select * from `clients` where `clients`.`id` in (?)
+["ba4bdc01-1e6d-40b1-8b61-6e4a813ed486"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[1,231]
+insert into `transaction_payers` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[999,"923191b1-ebe0-4292-957f-d6674fc9f336",231,"ba4bdc01-1e6d-40b1-8b61-6e4a813ed486","8fc4543a-a816-49fa-a0d1-4ce49279bcc2"]
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[232]
+select * from `clients` where `clients`.`id` in (?)
+["3b1f8bfa-48c3-4f19-9cc9-16ea28756c79"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[1999,232]
+insert into `transaction_payees` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[999,"6fa44502-1ebc-4de8-b834-e4dd10a9651b",232,"3b1f8bfa-48c3-4f19-9cc9-16ea28756c79","c9899dfe-9693-4594-8eca-120438f26794"]
+</system-out>
+      </testcase>
+      <testcase name="testInvalidateTypeTransactionShopkeeperToPerson" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="73" assertions="1" time="0.067541">
+        <system-out>insert into `persons` (`document`) values (?)
+["957.547.598-26"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["78657807-3c87-49c8-a8fc-92c72dbbfb24","Prof. Obie Murphy","App\\Models\\CRM\\Client\\PersonModel",164]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["4173-4","43438-88",1000,"78657807-3c87-49c8-a8fc-92c72dbbfb24"]
+insert into `shopkeepers` (`document`) values (?)
+["4716031686841232"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["c92c04c6-feef-451c-9373-27196e2f8374","Dangelo O'Hara","App\\Models\\CRM\\Client\\ShopkeeperModel",52]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["6894-4","45446-21",1000,"c92c04c6-feef-451c-9373-27196e2f8374"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["78657807-3c87-49c8-a8fc-92c72dbbfb24"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["c92c04c6-feef-451c-9373-27196e2f8374"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["c92c04c6-feef-451c-9373-27196e2f8374"]
+select * from `shopkeepers` where `shopkeepers`.`id` = ? limit 1
+[52]
+</system-out>
+      </testcase>
+      <testcase name="testInvalidateTypeTransactionShopkeeperToOther" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="83" assertions="1" time="0.076603">
+        <system-out>insert into `shopkeepers` (`document`) values (?)
+["2651388791849505"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["d4d9df05-aaa9-453f-867f-34d25f5f4ae9","Clifton Nienow","App\\Models\\CRM\\Client\\ShopkeeperModel",53]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["8654-9","20354-3",1000,"d4d9df05-aaa9-453f-867f-34d25f5f4ae9"]
+insert into `shopkeepers` (`document`) values (?)
+["3528631191186104"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["5566b9db-58a6-47b7-bc75-80fc56129744","Chadrick Quitzon","App\\Models\\CRM\\Client\\ShopkeeperModel",54]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["570-1","13120-96",1000,"5566b9db-58a6-47b7-bc75-80fc56129744"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["5566b9db-58a6-47b7-bc75-80fc56129744"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["d4d9df05-aaa9-453f-867f-34d25f5f4ae9"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["d4d9df05-aaa9-453f-867f-34d25f5f4ae9"]
+select * from `shopkeepers` where `shopkeepers`.`id` = ? limit 1
+[53]
+</system-out>
+      </testcase>
+      <testcase name="testValidationBalanceTransaction" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="106" assertions="3" time="0.101417">
+        <system-out>insert into `persons` (`document`) values (?)
+["784.359.990-45"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["e47e124f-bcf6-4568-9dda-b6587896c34f","Della Cummings","App\\Models\\CRM\\Client\\PersonModel",165]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["7342-6","73403-56",1000,"e47e124f-bcf6-4568-9dda-b6587896c34f"]
+insert into `persons` (`document`) values (?)
+["935.600.116-84"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["4b14dfa4-0d5f-4ea3-8852-aa31d06942d4","Miss Elaina Gibson DVM","App\\Models\\CRM\\Client\\PersonModel",166]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["2592-9","46121-51",1000,"4b14dfa4-0d5f-4ea3-8852-aa31d06942d4"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["4b14dfa4-0d5f-4ea3-8852-aa31d06942d4"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[165]
+select * from `clients` where `clients`.`id` = ? limit 1
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["4b14dfa4-0d5f-4ea3-8852-aa31d06942d4"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["4b14dfa4-0d5f-4ea3-8852-aa31d06942d4"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[165]
+transaction---------------------------stub authorized
+	send payload: {"payer":"e47e124f-bcf6-4568-9dda-b6587896c34f","payee":"4b14dfa4-0d5f-4ea3-8852-aa31d06942d4","value":120}
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[237]
+select * from `clients` where `clients`.`id` in (?)
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[880,237]
+insert into `transaction_payers` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[120,"923191b1-ebe0-4292-957f-d6674fc9f336",237,"e47e124f-bcf6-4568-9dda-b6587896c34f","91c20d52-e30a-4d4a-9ea6-0500ea73e7c9"]
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[238]
+select * from `clients` where `clients`.`id` in (?)
+["4b14dfa4-0d5f-4ea3-8852-aa31d06942d4"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[1120,238]
+insert into `transaction_payees` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[120,"6fa44502-1ebc-4de8-b834-e4dd10a9651b",238,"4b14dfa4-0d5f-4ea3-8852-aa31d06942d4","af04d55d-dcc5-4a14-ba10-41bd84675117"]
+select * from `bank_accounts` where `client_id` = ? limit 1
+["e47e124f-bcf6-4568-9dda-b6587896c34f"]
+select * from `bank_accounts` where `client_id` = ? limit 1
+["4b14dfa4-0d5f-4ea3-8852-aa31d06942d4"]
+</system-out>
+      </testcase>
+      <testcase name="testStoreStatementTransaction" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="127" assertions="5" time="0.106909">
+        <system-out>insert into `persons` (`document`) values (?)
+["102.915.302-10"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["441a8ce5-8358-458d-9cfd-7cc679d944d6","George Pollich","App\\Models\\CRM\\Client\\PersonModel",167]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["4713-3","15679-35",1000,"441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+insert into `persons` (`document`) values (?)
+["246.242.606-53"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["128cc078-0cc4-432c-bd7c-bfad835f11f5","Adeline Hyatt","App\\Models\\CRM\\Client\\PersonModel",168]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["5542-3","52704-9",1000,"128cc078-0cc4-432c-bd7c-bfad835f11f5"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["128cc078-0cc4-432c-bd7c-bfad835f11f5"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[167]
+select * from `clients` where `clients`.`id` = ? limit 1
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["128cc078-0cc4-432c-bd7c-bfad835f11f5"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["128cc078-0cc4-432c-bd7c-bfad835f11f5"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[167]
+transaction---------------------------stub authorized
+	send payload: {"payer":"441a8ce5-8358-458d-9cfd-7cc679d944d6","payee":"128cc078-0cc4-432c-bd7c-bfad835f11f5","value":431}
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[239]
+select * from `clients` where `clients`.`id` in (?)
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[569,239]
+insert into `transaction_payers` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[431,"923191b1-ebe0-4292-957f-d6674fc9f336",239,"441a8ce5-8358-458d-9cfd-7cc679d944d6","862f9bcd-8f50-45da-8bc5-3d4e3815f411"]
+select * from `bank_accounts` where `bank_accounts`.`id` = ? limit 1
+[240]
+select * from `clients` where `clients`.`id` in (?)
+["128cc078-0cc4-432c-bd7c-bfad835f11f5"]
+update `bank_accounts` set `balance` = ? where `id` = ?
+[1431,240]
+insert into `transaction_payees` (`value`, `category`, `bank_account_id`, `client_done_id`, `id`) values (?, ?, ?, ?, ?)
+[431,"6fa44502-1ebc-4de8-b834-e4dd10a9651b",240,"128cc078-0cc4-432c-bd7c-bfad835f11f5","08fe0034-f4fd-44fa-8bc0-99297c304705"]
+select * from `bank_accounts` where `client_id` = ? limit 1
+["441a8ce5-8358-458d-9cfd-7cc679d944d6"]
+select * from `bank_accounts` where `client_id` = ? limit 1
+["128cc078-0cc4-432c-bd7c-bfad835f11f5"]
+select * from `transaction_payers` where `bank_account_id` = ? and `client_done_id` = ? and `created_at` &gt; ? limit 1
+[239,"441a8ce5-8358-458d-9cfd-7cc679d944d6","2021-06-24T22:39:15.831096Z"]
+select * from `transaction_payees` where `bank_account_id` = ? and `client_done_id` = ? and `created_at` &gt; ? limit 1
+[240,"128cc078-0cc4-432c-bd7c-bfad835f11f5","2021-06-24T22:39:15.834029Z"]
+</system-out>
+      </testcase>
+      <testcase name="testControllerException" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsControllersTest.php" line="170" assertions="1" time="0.049159"/>
+    </testsuite>
+    <testsuite name="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsErrorControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsErrorControllersTest.php" tests="2" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.172501">
+      <testcase name="testServiceGrantNoAuthorizedTransaction" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsErrorControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsErrorControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsErrorControllersTest.php" line="13" assertions="1" time="0.088424">
+        <system-out>insert into `persons` (`document`) values (?)
+["970.404.611-38"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c","Dr. Alexanne Johnson IV","App\\Models\\CRM\\Client\\PersonModel",169]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["7650-8","83984-84",1000,"f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+insert into `persons` (`document`) values (?)
+["658.431.675-79"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["4b337818-c267-4b88-8bc7-98bfe3bf469c","Hadley Christiansen","App\\Models\\CRM\\Client\\PersonModel",170]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["1306-6","2148-49",1000,"4b337818-c267-4b88-8bc7-98bfe3bf469c"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["4b337818-c267-4b88-8bc7-98bfe3bf469c"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[169]
+select * from `clients` where `clients`.`id` = ? limit 1
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["4b337818-c267-4b88-8bc7-98bfe3bf469c"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["4b337818-c267-4b88-8bc7-98bfe3bf469c"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["f6e6c4f8-7786-4c60-aeab-c0ccb13b104c"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[169]
+</system-out>
+      </testcase>
+      <testcase name="testServiceGrantOffline" class="Tests\Feature\Http\Controllers\Api\Transactions\TransactionsErrorControllersTest" classname="Tests.Feature.Http.Controllers.Api.Transactions.TransactionsErrorControllersTest" file="/opt/project/tests/Feature/Http/Controllers/Api/Transactions/TransactionsErrorControllersTest.php" line="28" assertions="1" time="0.084077">
+        <system-out>insert into `persons` (`document`) values (?)
+["720.167.515-86"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5","Cristian Ryan","App\\Models\\CRM\\Client\\PersonModel",171]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["3632-1","15970-51",1000,"83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+insert into `persons` (`document`) values (?)
+["800.958.637-53"]
+insert into `clients` (`id`, `name`, `document_type`, `document_id`) values (?, ?, ?, ?)
+["40da3f78-edc9-4afb-9758-a0e1cfe1822a","Aric Mills","App\\Models\\CRM\\Client\\PersonModel",172]
+insert into `bank_accounts` (`agency`, `account`, `balance`, `client_id`) values (?, ?, ?, ?)
+["5785-4","40845-92",1000,"40da3f78-edc9-4afb-9758-a0e1cfe1822a"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["40da3f78-edc9-4afb-9758-a0e1cfe1822a"]
+select count(*) as aggregate from `clients` where `id` = ? and `deleted_at` is null
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[171]
+select * from `clients` where `clients`.`id` = ? limit 1
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["40da3f78-edc9-4afb-9758-a0e1cfe1822a"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["40da3f78-edc9-4afb-9758-a0e1cfe1822a"]
+select * from `clients` where `clients`.`id` = ? limit 1
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+select * from `bank_accounts` where `bank_accounts`.`client_id` in (?)
+["83d21cf5-2f49-4ea8-a234-12e1455e19f5"]
+select * from `persons` where `persons`.`id` = ? limit 1
+[171]
+Guzzle
+</system-out>
+      </testcase>
+    </testsuite>
+    <testsuite name="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" tests="9" assertions="9" errors="0" warnings="0" failures="0" skipped="0" time="0.179277">
+      <testcase name="testInstance" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="52" assertions="1" time="0.020451"/>
+      <testcase name="testObjectType" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="57" assertions="1" time="0.020224"/>
+      <testcase name="testHasMethods" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="62" assertions="1" time="0.019214"/>
+      <testcase name="testGetTypeErrorException" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="67" assertions="1" time="0.019626"/>
+      <testcase name="testRulesFieldStartedEmpty" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="73" assertions="1" time="0.019045"/>
+      <testcase name="testPushStringWithoutNamespace" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="84" assertions="1" time="0.020051"/>
+      <testcase name="testPushObjectNoRule" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="91" assertions="1" time="0.020659"/>
+      <testcase name="testRulesField" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="100" assertions="1" time="0.019377"/>
+      <testcase name="testParseRulesOneClient" class="Tests\Unit\Common\ManageRule\ManageRulesUnitTest" classname="Tests.Unit.Common.ManageRule.ManageRulesUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/ManageRulesUnitTest.php" line="111" assertions="1" time="0.020630"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Common\ManageRule\Types\BalanceNoZeroRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/BalanceNoZeroRuleUnitTest.php" tests="4" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.008081">
+      <testcase name="testObjectType" class="Tests\Unit\Common\ManageRule\Types\BalanceNoZeroRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.BalanceNoZeroRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/BalanceNoZeroRuleUnitTest.php" line="26" assertions="1" time="0.000829"/>
+      <testcase name="testRulesFieldStartedEmpty" class="Tests\Unit\Common\ManageRule\Types\BalanceNoZeroRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.BalanceNoZeroRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/BalanceNoZeroRuleUnitTest.php" line="31" assertions="1" time="0.000829"/>
+      <testcase name="testParseOrFailEnoughBalance" class="Tests\Unit\Common\ManageRule\Types\BalanceNoZeroRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.BalanceNoZeroRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/BalanceNoZeroRuleUnitTest.php" line="42" assertions="2" time="0.004982"/>
+      <testcase name="testParseOrFailBalancePositive" class="Tests\Unit\Common\ManageRule\Types\BalanceNoZeroRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.BalanceNoZeroRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/BalanceNoZeroRuleUnitTest.php" line="62" assertions="3" time="0.001440"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Common\ManageRule\Types\NoAllowedShopkeeperRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/NoAllowedShopkeeperRuleUnitTest.php" tests="3" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="0.059653">
+      <testcase name="testObjectType" class="Tests\Unit\Common\ManageRule\Types\NoAllowedShopkeeperRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.NoAllowedShopkeeperRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/NoAllowedShopkeeperRuleUnitTest.php" line="27" assertions="1" time="0.019046"/>
+      <testcase name="testParseOrFailShopkeeper" class="Tests\Unit\Common\ManageRule\Types\NoAllowedShopkeeperRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.NoAllowedShopkeeperRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/NoAllowedShopkeeperRuleUnitTest.php" line="33" assertions="2" time="0.020812"/>
+      <testcase name="testParseOrFailPerson" class="Tests\Unit\Common\ManageRule\Types\NoAllowedShopkeeperRuleUnitTest" classname="Tests.Unit.Common.ManageRule.Types.NoAllowedShopkeeperRuleUnitTest" file="/opt/project/tests/Unit/Common/ManageRule/Types/NoAllowedShopkeeperRuleUnitTest.php" line="55" assertions="2" time="0.019795"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" tests="6" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.006569">
+      <testcase name="testObjectType" class="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" classname="Tests.Unit.Common.Repositories.BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" line="24" assertions="1" time="0.001593"/>
+      <testcase name="testHasMethods" class="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" classname="Tests.Unit.Common.Repositories.BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" line="30" assertions="2" time="0.000944"/>
+      <testcase name="testScopeAttributeStartedInstanceModel" class="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" classname="Tests.Unit.Common.Repositories.BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" line="36" assertions="1" time="0.000933"/>
+      <testcase name="testAliasAttributeStartedNull" class="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" classname="Tests.Unit.Common.Repositories.BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" line="47" assertions="1" time="0.000940"/>
+      <testcase name="testGetTypeErrorException" class="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" classname="Tests.Unit.Common.Repositories.BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" line="57" assertions="1" time="0.000982"/>
+      <testcase name="testCreateMethod" class="Tests\Unit\Common\Repositories\BaseRepositoryUnitTest" classname="Tests.Unit.Common.Repositories.BaseRepositoryUnitTest" file="/opt/project/tests/Unit/Common/Repositories/BaseRepositoryUnitTest.php" line="63" assertions="1" time="0.001177"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Common\VerifyAuthorization\VerifyAuthorizationUnitTest" file="/opt/project/tests/Unit/Common/VerifyAuthorization/VerifyAuthorizationUnitTest.php" tests="4" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.082476">
+      <testcase name="testInstance" class="Tests\Unit\Common\VerifyAuthorization\VerifyAuthorizationUnitTest" classname="Tests.Unit.Common.VerifyAuthorization.VerifyAuthorizationUnitTest" file="/opt/project/tests/Unit/Common/VerifyAuthorization/VerifyAuthorizationUnitTest.php" line="17" assertions="1" time="0.019598"/>
+      <testcase name="testNoGrantedError" class="Tests\Unit\Common\VerifyAuthorization\VerifyAuthorizationUnitTest" classname="Tests.Unit.Common.VerifyAuthorization.VerifyAuthorizationUnitTest" file="/opt/project/tests/Unit/Common/VerifyAuthorization/VerifyAuthorizationUnitTest.php" line="29" assertions="1" time="0.022626"/>
+      <testcase name="testGrantedServiceOffline" class="Tests\Unit\Common\VerifyAuthorization\VerifyAuthorizationUnitTest" classname="Tests.Unit.Common.VerifyAuthorization.VerifyAuthorizationUnitTest" file="/opt/project/tests/Unit/Common/VerifyAuthorization/VerifyAuthorizationUnitTest.php" line="37" assertions="1" time="0.020972">
+        <system-out>Guzzle
+</system-out>
+      </testcase>
+      <testcase name="testGrantedConfirmed" class="Tests\Unit\Common\VerifyAuthorization\VerifyAuthorizationUnitTest" classname="Tests.Unit.Common.VerifyAuthorization.VerifyAuthorizationUnitTest" file="/opt/project/tests/Unit/Common/VerifyAuthorization/VerifyAuthorizationUnitTest.php" line="47" assertions="1" time="0.019280">
+        <system-out>transaction---------------------------stub authorized
+	send payload: ["xpto"]
+</system-out>
+      </testcase>
+    </testsuite>
+    <testsuite name="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayeeP2BUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayeeP2BUnitTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.001111">
+      <testcase name="testInstanceResponsible" class="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayeeP2BUnitTest" classname="Tests.Unit.Domain.Financial.Transaction.Entity.CategoryPayeeP2BUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayeeP2BUnitTest.php" line="13" assertions="2" time="0.001111"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayeeP2PUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayeeP2PUnitTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.000892">
+      <testcase name="testInstanceResponsible" class="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayeeP2PUnitTest" classname="Tests.Unit.Domain.Financial.Transaction.Entity.CategoryPayeeP2PUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayeeP2PUnitTest.php" line="10" assertions="2" time="0.000892"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayerP2BUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayerP2BUnitTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.001145">
+      <testcase name="testInstanceResponsible" class="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayerP2BUnitTest" classname="Tests.Unit.Domain.Financial.Transaction.Entity.CategoryPayerP2BUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayerP2BUnitTest.php" line="14" assertions="2" time="0.001145"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayerP2PUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayerP2PUnitTest.php" tests="1" assertions="2" errors="0" warnings="0" failures="0" skipped="0" time="0.000926">
+      <testcase name="testInstanceResponsible" class="Tests\Unit\Domain\Financial\Transaction\Entity\CategoryPayerP2PUnitTest" classname="Tests.Unit.Domain.Financial.Transaction.Entity.CategoryPayerP2PUnitTest" file="/opt/project/tests/Unit/Domain/Financial/Transaction/Entity/CategoryPayerP2PUnitTest.php" line="10" assertions="2" time="0.000926"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Models\CRM\ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" tests="9" assertions="9" errors="0" warnings="0" failures="0" skipped="0" time="0.249068">
+      <testcase name="testIfExtendsModelFromEloquent" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="30" assertions="1" time="0.027191"/>
+      <testcase name="testObjectType" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="35" assertions="1" time="0.025855"/>
+      <testcase name="testFillableAttribute" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="40" assertions="1" time="0.025097"/>
+      <testcase name="testIfUseTraits" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="52" assertions="1" time="0.025099"/>
+      <testcase name="testCastsAttribute" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="60" assertions="1" time="0.029268"/>
+      <testcase name="testIncrementing" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="67" assertions="1" time="0.029645"/>
+      <testcase name="testTimestamp" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="72" assertions="1" time="0.030035"/>
+      <testcase name="testTable" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="77" assertions="1" time="0.025299"/>
+      <testcase name="testKeyType" class="Tests\Unit\Models\CRM\ClientUnitTest" classname="Tests.Unit.Models.CRM.ClientUnitTest" file="/opt/project/tests/Unit/Models/CRM/ClientUnitTest.php" line="87" assertions="1" time="0.031579"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Models\CRM\PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" tests="7" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.216441">
+      <testcase name="testIfExtendsModelFromEloquent" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="27" assertions="1" time="0.033628"/>
+      <testcase name="testObjectType" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="32" assertions="1" time="0.032892"/>
+      <testcase name="testFillableAttribute" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="37" assertions="1" time="0.029830"/>
+      <testcase name="testIncrementing" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="47" assertions="1" time="0.030265"/>
+      <testcase name="testTimestamp" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="52" assertions="1" time="0.029530"/>
+      <testcase name="testTable" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="57" assertions="1" time="0.031259"/>
+      <testcase name="testKeyType" class="Tests\Unit\Models\CRM\PersonUnitTest" classname="Tests.Unit.Models.CRM.PersonUnitTest" file="/opt/project/tests/Unit/Models/CRM/PersonUnitTest.php" line="67" assertions="1" time="0.029037"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Models\CRM\ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" tests="7" assertions="7" errors="0" warnings="0" failures="0" skipped="0" time="0.177989">
+      <testcase name="testIfExtendsModelFromEloquent" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="27" assertions="1" time="0.029729"/>
+      <testcase name="testObjectType" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="32" assertions="1" time="0.027752"/>
+      <testcase name="testFillableAttribute" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="37" assertions="1" time="0.025287"/>
+      <testcase name="testIncrementing" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="47" assertions="1" time="0.025252"/>
+      <testcase name="testTimestamp" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="52" assertions="1" time="0.026738"/>
+      <testcase name="testTable" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="57" assertions="1" time="0.022297"/>
+      <testcase name="testKeyType" class="Tests\Unit\Models\CRM\ShopkeeperUnitTest" classname="Tests.Unit.Models.CRM.ShopkeeperUnitTest" file="/opt/project/tests/Unit/Models/CRM/ShopkeeperUnitTest.php" line="67" assertions="1" time="0.020934"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" tests="8" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.187530">
+      <testcase name="testIfExtendsModelFromEloquent" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="23" assertions="1" time="0.022187"/>
+      <testcase name="testObjectType" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="28" assertions="1" time="0.027808"/>
+      <testcase name="testFillableAttribute" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="33" assertions="1" time="0.025213"/>
+      <testcase name="testCastsAttribute" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="45" assertions="1" time="0.021319"/>
+      <testcase name="testIncrementing" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="57" assertions="1" time="0.027065"/>
+      <testcase name="testTimestamp" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="62" assertions="1" time="0.024097"/>
+      <testcase name="testTable" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="67" assertions="1" time="0.020338"/>
+      <testcase name="testKeyType" class="Tests\Unit\Models\Financial\BankAccount\BankAccountModelUnitTest" classname="Tests.Unit.Models.Financial.BankAccount.BankAccountModelUnitTest" file="/opt/project/tests/Unit/Models/Financial/BankAccount/BankAccountModelUnitTest.php" line="77" assertions="1" time="0.019502"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" tests="8" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.007834">
+      <testcase name="testIfExtendsModelFromEloquent" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="29" assertions="1" time="0.001378"/>
+      <testcase name="testObjectType" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="34" assertions="1" time="0.001015"/>
+      <testcase name="testFillableAttribute" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="39" assertions="1" time="0.000906"/>
+      <testcase name="testCastsAttribute" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="52" assertions="1" time="0.000955"/>
+      <testcase name="testIncrementing" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="62" assertions="1" time="0.000826"/>
+      <testcase name="testTimestamp" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="67" assertions="1" time="0.000845"/>
+      <testcase name="testTable" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="72" assertions="1" time="0.000828"/>
+      <testcase name="testKeyType" class="Tests\Unit\Models\Financial\Transaction\TransactionPayeeUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayeeUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayeeUnitTest.php" line="82" assertions="1" time="0.001079"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" tests="8" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.007338">
+      <testcase name="testIfExtendsModelFromEloquent" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="29" assertions="1" time="0.001220"/>
+      <testcase name="testObjectType" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="34" assertions="1" time="0.001046"/>
+      <testcase name="testFillableAttribute" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="39" assertions="1" time="0.000787"/>
+      <testcase name="testCastsAttribute" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="52" assertions="1" time="0.000935"/>
+      <testcase name="testIncrementing" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="62" assertions="1" time="0.000854"/>
+      <testcase name="testTimestamp" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="67" assertions="1" time="0.000769"/>
+      <testcase name="testTable" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="72" assertions="1" time="0.000838"/>
+      <testcase name="testKeyType" class="Tests\Unit\Models\Financial\Transaction\TransactionPayerUnitTest" classname="Tests.Unit.Models.Financial.Transaction.TransactionPayerUnitTest" file="/opt/project/tests/Unit/Models/Financial/Transaction/TransactionPayerUnitTest.php" line="82" assertions="1" time="0.000888"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Services\Transaction\Bridge\TransactionFireUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/TransactionFireUnitTest.php" tests="3" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.003683">
+      <testcase name="testInstance" class="Tests\Unit\Services\Transaction\Bridge\TransactionFireUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.TransactionFireUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/TransactionFireUnitTest.php" line="26" assertions="1" time="0.001588"/>
+      <testcase name="testObjectType" class="Tests\Unit\Services\Transaction\Bridge\TransactionFireUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.TransactionFireUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/TransactionFireUnitTest.php" line="38" assertions="1" time="0.001138"/>
+      <testcase name="testFillFieldRequest" class="Tests\Unit\Services\Transaction\Bridge\TransactionFireUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.TransactionFireUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/TransactionFireUnitTest.php" line="44" assertions="1" time="0.000957"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Services\Transaction\Bridge\Workers\TransactionWorkerP2BUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/Workers/TransactionWorkerP2BUnitTest.php" tests="2" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.041647">
+      <testcase name="testInstance" class="Tests\Unit\Services\Transaction\Bridge\Workers\TransactionWorkerP2BUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.Workers.TransactionWorkerP2BUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/Workers/TransactionWorkerP2BUnitTest.php" line="35" assertions="1" time="0.021969"/>
+      <testcase name="testisExtendsOfBaseTransactionWorker" class="Tests\Unit\Services\Transaction\Bridge\Workers\TransactionWorkerP2BUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.Workers.TransactionWorkerP2BUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/Workers/TransactionWorkerP2BUnitTest.php" line="48" assertions="2" time="0.019678"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Services\Transaction\Bridge\Workers\TransactionWorkerP2PUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/Workers/TransactionWorkerP2PUnitTest.php" tests="2" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.039562">
+      <testcase name="testInstance" class="Tests\Unit\Services\Transaction\Bridge\Workers\TransactionWorkerP2PUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.Workers.TransactionWorkerP2PUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/Workers/TransactionWorkerP2PUnitTest.php" line="34" assertions="1" time="0.019988"/>
+      <testcase name="testisExtendsOfBaseTransactionWorker" class="Tests\Unit\Services\Transaction\Bridge\Workers\TransactionWorkerP2PUnitTest" classname="Tests.Unit.Services.Transaction.Bridge.Workers.TransactionWorkerP2PUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Bridge/Workers/TransactionWorkerP2PUnitTest.php" line="47" assertions="2" time="0.019574"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\Services\Transaction\Policies\BalanceRuleAndGrantPoliciesUnitTest" file="/opt/project/tests/Unit/Services/Transaction/Policies/BalanceRuleAndGrantPoliciesUnitTest.php" tests="1" assertions="0" errors="0" warnings="1" failures="0" skipped="0" time="0.001046">
+      <testcase name="Warning" assertions="0" time="0.001046">
+        <warning type="PHPUnit\Framework\Warning">Warning
+No tests found in class "Tests\Unit\Services\Transaction\Policies\BalanceRuleAndGrantPoliciesUnitTest".</warning>
+      </testcase>
+    </testsuite>
+    <testsuite name="Tests\Unit\Services\Transaction\TransactionServiceAsyncUnitTest" file="/opt/project/tests/Unit/Services/Transaction/TransactionServiceAsyncUnitTest.php" tests="1" assertions="0" errors="0" warnings="1" failures="0" skipped="0" time="0.000102">
+      <testcase name="Warning" assertions="0" time="0.000102">
+        <warning type="PHPUnit\Framework\Warning">Warning
+No tests found in class "Tests\Unit\Services\Transaction\TransactionServiceAsyncUnitTest".</warning>
+      </testcase>
+    </testsuite>
+  </testsuite>
+</testsuites>

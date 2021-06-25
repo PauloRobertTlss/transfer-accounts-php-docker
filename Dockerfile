@@ -1,4 +1,4 @@
-FROM php:7.3.6-fpm-alpine3.10
+FROM php:7.4.0-fpm-alpine3.10
 
 RUN apk add --no-cache openssl \
             bash \
@@ -12,6 +12,16 @@ ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+# install and enable xdebug
+RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+  && pecl install xdebug \
+  && docker-php-ext-enable xdebug \
+  && apk del pcre-dev ${PHPIZE_DEPS}
+
+#xdebug.mode' to 'coverage'
+RUN echo 'xdebug.mode=coverage' >> /usr/local/etc/php/php.ini
+
 
 WORKDIR /var/www
 RUN rm -rf /var/www/html
